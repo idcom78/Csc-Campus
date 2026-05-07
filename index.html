@@ -2,1392 +2,832 @@
 <html lang="hi">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<meta name="description" content="CSC Campus Purnea - Best Coaching for SSC, Bank, Railway, BSSC, BPSC. Maths & Reasoning Specialist N.K. Suman Sir.">
-<title>CSC Campus Purnea | Selection Shuru Hota Hai Yahan Se</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Tiro+Devanagari+Hindi:ital@0;1&family=Rajdhani:wght@400;500;600;700&family=Playfair+Display:wght@700;900&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>भविष्य की शिक्षा — Deep Analysis</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=JetBrains+Mono:wght@300;500&family=Noto+Sans+Devanagari:wght@300;400;700&display=swap" rel="stylesheet">
 <style>
-:root {
-  --red: #CC0000;
-  --red-bright: #FF2200;
-  --gold: #FFD700;
-  --gold-light: #FFE066;
-  --navy: #060818;
-  --navy2: #0D1030;
-  --navy3: #0A0A28;
-  --white: #FFFFFF;
-  --text-muted: rgba(255,220,150,0.75);
-  --glass: rgba(255,255,255,0.05);
-  --glass-border: rgba(255,200,0,0.2);
-  --radius: 14px;
-  --transition: 0.35s cubic-bezier(0.4,0,0.2,1);
-}
+  :root {
+    --ink: #0a0a0f;
+    --paper: #f5f0e8;
+    --accent: #c8390a;
+    --gold: #d4a017;
+    --muted: #6b6560;
+    --light-line: #e0d9cd;
+  }
 
-*{margin:0;padding:0;box-sizing:border-box;}
-html{scroll-behavior:smooth;}
+  * { margin: 0; padding: 0; box-sizing: border-box; }
 
-body {
-  font-family:'Rajdhani',sans-serif;
-  background:var(--navy);
-  color:var(--white);
-  overflow-x:hidden;
-  cursor:default;
-}
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'JetBrains Mono', monospace;
+    overflow-x: hidden;
+  }
 
-/* ===== SCROLLBAR ===== */
-::-webkit-scrollbar{width:6px;}
-::-webkit-scrollbar-track{background:#060818;}
-::-webkit-scrollbar-thumb{background:linear-gradient(#CC0000,#FFD700);border-radius:3px;}
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 60px 40px;
+    position: relative;
+    border-bottom: 3px solid var(--ink);
+    background: 
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 39px,
+        var(--light-line) 39px,
+        var(--light-line) 40px
+      );
+  }
 
-/* ===== CUSTOM CURSOR ===== */
-.cursor {
-  width:18px;height:18px;
-  background:rgba(255,200,0,0.8);
-  border-radius:50%;
-  position:fixed;top:0;left:0;
-  pointer-events:none;z-index:9999;
-  transition:transform 0.15s;
-  mix-blend-mode:difference;
-  display:none;
-}
-@media(pointer:fine){.cursor{display:block;}}
+  .hero::before {
+    content: '';
+    position: absolute;
+    left: 80px;
+    top: 0; bottom: 0;
+    width: 2px;
+    background: #e8a0a0;
+    opacity: 0.6;
+  }
 
-/* ===== TOPBAR ===== */
-.topbar {
-  background:linear-gradient(90deg,var(--red),#8B0000,var(--red));
-  padding:7px 20px;
-  display:flex;align-items:center;justify-content:space-between;
-  font-size:12px;font-weight:600;letter-spacing:1px;
-  position:relative;overflow:hidden;
-}
-.topbar::after{
-  content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;
-  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.12),transparent);
-  animation:topShine 3s ease-in-out infinite;
-}
-@keyframes topShine{0%{left:-100%}100%{left:200%}}
-.topbar-left{display:flex;align-items:center;gap:14px;}
-.topbar-right{display:flex;align-items:center;gap:10px;}
-.topbar a{color:var(--gold);text-decoration:none;display:flex;align-items:center;gap:5px;transition:opacity 0.2s;}
-.topbar a:hover{opacity:0.8;}
-.marquee-wrap{flex:1;overflow:hidden;margin:0 20px;}
-.marquee-text{
-  display:inline-block;white-space:nowrap;
-  animation:marquee 22s linear infinite;
-  color:rgba(255,255,200,0.9);
-}
-@keyframes marquee{0%{transform:translateX(100vw)}100%{transform:translateX(-100%)}}
+  .year-tag {
+    font-family: 'JetBrains Mono';
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    padding-left: 100px;
+    animation: fadeIn 0.8s ease;
+  }
 
-/* ===== NAVBAR ===== */
-.navbar {
-  position:sticky;top:0;z-index:1000;
-  background:rgba(6,8,24,0.92);
-  backdrop-filter:blur(20px);
-  border-bottom:1px solid var(--glass-border);
-  padding:0 24px;
-  display:flex;align-items:center;justify-content:space-between;
-  height:68px;
-  transition:all 0.3s;
-}
-.navbar.scrolled{
-  background:rgba(6,8,24,0.98);
-  box-shadow:0 4px 30px rgba(200,0,0,0.2);
-}
-.nav-logo{display:flex;align-items:center;gap:12px;text-decoration:none;}
-.nav-logo-icon{
-  width:46px;height:46px;
-  background:linear-gradient(135deg,var(--red),#FF4400);
-  border-radius:50%;
-  border:2px solid rgba(255,200,0,0.7);
-  display:flex;align-items:center;justify-content:center;
-  flex-direction:column;
-  box-shadow:0 0 16px rgba(200,0,0,0.5);
-}
-.nav-logo-icon span:first-child{font-family:'Bebas Neue';font-size:15px;color:var(--gold);line-height:1;}
-.nav-logo-icon span:last-child{font-size:6px;color:rgba(255,220,100,0.8);letter-spacing:0.5px;}
-.nav-brand{display:flex;flex-direction:column;}
-.nav-name{font-family:'Bebas Neue';font-size:26px;background:linear-gradient(135deg,var(--gold),#FF8C00,var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:2px;line-height:1;}
-.nav-tagline{font-size:9px;color:var(--text-muted);letter-spacing:1.5px;}
-.nav-links{display:flex;align-items:center;gap:6px;}
-.nav-link{
-  color:rgba(255,255,255,0.8);text-decoration:none;
-  font-size:13px;font-weight:600;letter-spacing:1px;
-  padding:8px 14px;border-radius:8px;
-  transition:var(--transition);position:relative;
-}
-.nav-link::after{
-  content:'';position:absolute;bottom:4px;left:50%;right:50%;
-  height:2px;background:var(--gold);
-  transition:var(--transition);border-radius:1px;
-}
-.nav-link:hover{color:var(--gold);}
-.nav-link:hover::after{left:14px;right:14px;}
-.nav-cta{
-  background:linear-gradient(135deg,var(--red),var(--red-bright));
-  color:white!important;padding:9px 18px!important;
-  border-radius:25px!important;
-  border:1px solid rgba(255,200,0,0.4);
-  box-shadow:0 0 16px rgba(200,0,0,0.4);
-  font-size:12px!important;
-}
-.nav-cta:hover{box-shadow:0 0 28px rgba(200,0,0,0.7)!important;transform:translateY(-1px);}
-.nav-cta::after{display:none!important;}
-.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px;}
-.hamburger span{width:24px;height:2px;background:var(--gold);border-radius:1px;transition:0.3s;}
-.mobile-menu{
-  display:none;position:fixed;inset:0;top:68px;
-  background:rgba(6,8,24,0.98);backdrop-filter:blur(20px);
-  z-index:999;padding:30px 24px;
-  flex-direction:column;gap:10px;
-}
-.mobile-menu.open{display:flex;}
-.mobile-link{
-  color:white;text-decoration:none;font-size:20px;font-weight:700;
-  padding:16px;border-bottom:1px solid var(--glass-border);
-  letter-spacing:2px;transition:color 0.2s;
-}
-.mobile-link:hover{color:var(--gold);}
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(42px, 8vw, 96px);
+    font-weight: 700;
+    line-height: 1.0;
+    padding-left: 100px;
+    animation: slideUp 1s ease;
+  }
 
-/* ===== HERO / BANNER SLIDER ===== */
-.hero{
-  position:relative;height:calc(100vh - 100px);min-height:520px;
-  overflow:hidden;
-}
-.slides-container{
-  display:flex;height:100%;
-  transition:transform 0.8s cubic-bezier(0.77,0,0.175,1);
-}
-.slide{
-  min-width:100%;height:100%;
-  position:relative;overflow:hidden;
-  display:flex;align-items:center;
-}
-/* BG layers per slide */
-.slide-1{background:linear-gradient(135deg,#060818 0%,#1A0010 50%,#0A0020 100%);}
-.slide-2{background:linear-gradient(135deg,#020A14 0%,#001A0A 50%,#060818 100%);}
-.slide-3{background:linear-gradient(135deg,#120A00 0%,#1A0A00 50%,#060818 100%);}
-.slide-4{background:linear-gradient(135deg,#0A0014 0%,#140020 50%,#060818 100%);}
+  .hero-title .accent-word {
+    color: var(--accent);
+    font-style: italic;
+  }
 
-.slide-bg-shape{
-  position:absolute;inset:0;pointer-events:none;
-}
-.slide-bg-shape::before{
-  content:'';position:absolute;
-  width:70%;height:100%;
-  right:-10%;top:0;
-  clip-path:polygon(20% 0%,100% 0%,100% 100%,0% 100%);
-  opacity:0.6;
-}
-.slide-1 .slide-bg-shape::before{background:linear-gradient(135deg,rgba(200,0,0,0.25),rgba(100,0,60,0.1));}
-.slide-2 .slide-bg-shape::before{background:linear-gradient(135deg,rgba(0,150,80,0.2),rgba(0,80,40,0.08));}
-.slide-3 .slide-bg-shape::before{background:linear-gradient(135deg,rgba(255,120,0,0.2),rgba(150,60,0,0.08));}
-.slide-4 .slide-bg-shape::before{background:linear-gradient(135deg,rgba(80,0,200,0.2),rgba(40,0,120,0.08));}
+  .hero-subtitle {
+    font-family: 'Noto Sans Devanagari', sans-serif;
+    font-size: 16px;
+    color: var(--muted);
+    margin-top: 28px;
+    padding-left: 100px;
+    max-width: 600px;
+    line-height: 1.8;
+    font-weight: 300;
+    animation: fadeIn 1.2s ease;
+  }
 
-.slide-grid{
-  position:absolute;inset:0;
-  background-image:linear-gradient(rgba(255,200,0,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,200,0,0.03) 1px,transparent 1px);
-  background-size:50px 50px;
-}
-.slide-content{
-  position:relative;z-index:5;
-  padding:40px 60px;
-  max-width:600px;
-  opacity:0;transform:translateY(30px);
-  transition:all 0.8s cubic-bezier(0.4,0,0.2,1) 0.3s;
-}
-.slide.active .slide-content{opacity:1;transform:translateY(0);}
-.slide-badge{
-  display:inline-flex;align-items:center;gap:8px;
-  background:rgba(255,200,0,0.12);
-  border:1px solid rgba(255,200,0,0.4);
-  border-radius:20px;padding:6px 16px;
-  font-size:11px;font-weight:700;letter-spacing:2px;color:var(--gold);
-  margin-bottom:18px;
-}
-.slide-title{
-  font-family:'Bebas Neue';
-  font-size:clamp(42px,7vw,80px);
-  line-height:0.95;letter-spacing:3px;
-  margin-bottom:16px;
-}
-.slide-title .gold{
-  background:linear-gradient(135deg,var(--gold),#FF8C00,var(--gold));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  filter:drop-shadow(0 0 12px rgba(255,180,0,0.4));
-}
-.slide-title .red{color:var(--red-bright);text-shadow:0 0 20px rgba(255,50,0,0.5);}
-.slide-desc{
-  font-size:15px;font-weight:500;line-height:1.7;
-  color:rgba(255,255,255,0.8);margin-bottom:28px;
-  font-family:'Tiro Devanagari Hindi',serif;
-}
-.slide-actions{display:flex;gap:12px;flex-wrap:wrap;}
-.btn-primary{
-  display:inline-flex;align-items:center;gap:8px;
-  background:linear-gradient(135deg,var(--red),var(--red-bright));
-  color:white;text-decoration:none;
-  padding:13px 26px;border-radius:30px;
-  font-size:13px;font-weight:700;letter-spacing:1px;
-  border:1px solid rgba(255,200,0,0.3);
-  box-shadow:0 0 24px rgba(200,0,0,0.4);
-  transition:var(--transition);position:relative;overflow:hidden;
-}
-.btn-primary::before{
-  content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;
-  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.2),transparent);
-  transition:left 0.5s;
-}
-.btn-primary:hover::before{left:200%;}
-.btn-primary:hover{transform:translateY(-2px);box-shadow:0 0 40px rgba(200,0,0,0.6);}
-.btn-outline{
-  display:inline-flex;align-items:center;gap:8px;
-  background:rgba(255,255,255,0.07);
-  color:white;text-decoration:none;
-  padding:13px 26px;border-radius:30px;
-  font-size:13px;font-weight:700;letter-spacing:1px;
-  border:1px solid var(--glass-border);
-  transition:var(--transition);
-}
-.btn-outline:hover{background:rgba(255,200,0,0.1);border-color:rgba(255,200,0,0.5);color:var(--gold);}
+  .scroll-hint {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: var(--muted);
+    animation: bounce 2s infinite;
+  }
 
-/* Slide right side — decorative */
-.slide-deco{
-  position:absolute;right:0;top:0;bottom:0;width:45%;
-  display:flex;align-items:center;justify-content:center;
-  pointer-events:none;
-}
-.deco-circle{
-  position:absolute;border-radius:50%;border:1px solid;
-  animation:spinSlow 30s linear infinite;
-}
-.deco-c1{width:320px;height:320px;border-color:rgba(255,200,0,0.12);right:80px;}
-.deco-c2{width:240px;height:240px;border-color:rgba(200,0,0,0.2);right:120px;animation-direction:reverse;animation-duration:20s;}
-.deco-c3{width:160px;height:160px;border-color:rgba(255,200,0,0.25);right:160px;}
-@keyframes spinSlow{from{transform:rotate(0)}to{transform:rotate(360deg)}}
-.deco-center{
-  position:absolute;right:190px;
-  width:120px;height:120px;
-  background:radial-gradient(circle,rgba(255,200,0,0.15),transparent);
-  border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  font-size:60px;
-  animation:floatUp 4s ease-in-out infinite alternate;
-}
-@keyframes floatUp{from{transform:translateY(0)}to{transform:translateY(-18px)}}
+  /* SECTIONS */
+  .section {
+    padding: 80px 40px;
+    border-bottom: 1px solid var(--light-line);
+    max-width: 900px;
+    margin: 0 auto;
+  }
 
-/* Slider dots & arrows */
-.slider-dots{
-  position:absolute;bottom:24px;left:50%;transform:translateX(-50%);
-  display:flex;gap:8px;z-index:10;
-}
-.dot{
-  width:8px;height:8px;border-radius:4px;
-  background:rgba(255,255,255,0.3);
-  cursor:pointer;transition:var(--transition);border:none;
-}
-.dot.active{width:28px;background:var(--gold);}
-.slider-arrows{
-  position:absolute;top:50%;transform:translateY(-50%);
-  width:100%;display:flex;justify-content:space-between;
-  padding:0 20px;z-index:10;pointer-events:none;
-}
-.arr-btn{
-  width:44px;height:44px;border-radius:50%;
-  background:rgba(255,200,0,0.15);border:1px solid rgba(255,200,0,0.3);
-  color:var(--gold);font-size:18px;cursor:pointer;
-  display:flex;align-items:center;justify-content:center;
-  pointer-events:all;transition:var(--transition);
-  backdrop-filter:blur(10px);
-}
-.arr-btn:hover{background:rgba(255,200,0,0.3);transform:scale(1.1);}
+  .section-number {
+    font-size: 10px;
+    letter-spacing: 4px;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
 
-/* Progress bar */
-.slide-progress{
-  position:absolute;bottom:0;left:0;height:3px;
-  background:linear-gradient(90deg,var(--red),var(--gold));
-  animation:progressBar 5s linear infinite;
-  z-index:10;
-}
-@keyframes progressBar{from{width:0}to{width:100%}}
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 4vw, 48px);
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 40px;
+    border-left: 4px solid var(--accent);
+    padding-left: 20px;
+  }
 
-/* ===== STATS STRIP ===== */
-.stats-strip{
-  background:linear-gradient(90deg,#0D0020,#150010,#0D0020);
-  border-top:1px solid rgba(255,200,0,0.2);
-  border-bottom:1px solid rgba(255,200,0,0.2);
-  padding:20px 40px;
-  display:grid;grid-template-columns:repeat(4,1fr);gap:20px;
-}
-.stat-item{
-  text-align:center;position:relative;
-  padding:14px 10px;
-}
-.stat-item:not(:last-child)::after{
-  content:'';position:absolute;right:0;top:20%;bottom:20%;
-  width:1px;background:rgba(255,200,0,0.2);
-}
-.stat-num{
-  font-family:'Bebas Neue';font-size:42px;
-  background:linear-gradient(135deg,var(--gold),#FF8C00);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  line-height:1;filter:drop-shadow(0 0 8px rgba(255,180,0,0.4));
-}
-.stat-label{font-size:11px;font-weight:700;letter-spacing:2px;color:var(--text-muted);margin-top:4px;}
+  /* CARDS */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 2px;
+    margin: 30px 0;
+    border: 2px solid var(--ink);
+  }
 
-/* ===== SECTIONS ===== */
-.section{padding:80px 40px;}
-.section-inner{max-width:1200px;margin:0 auto;}
-.section-header{text-align:center;margin-bottom:50px;}
-.section-tag{
-  display:inline-flex;align-items:center;gap:8px;
-  background:rgba(200,0,0,0.15);border:1px solid rgba(200,0,0,0.3);
-  border-radius:20px;padding:5px 16px;
-  font-size:11px;font-weight:700;letter-spacing:2px;color:var(--red-bright);
-  margin-bottom:14px;
-}
-.section-title{
-  font-family:'Bebas Neue';font-size:clamp(32px,5vw,52px);
-  letter-spacing:3px;line-height:1;
-}
-.section-title .g{
-  background:linear-gradient(135deg,var(--gold),#FF8C00,var(--gold));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-}
-.section-sub{font-size:15px;color:rgba(255,255,255,0.6);margin-top:10px;font-family:'Tiro Devanagari Hindi',serif;line-height:1.7;}
-.gold-divider{
-  width:80px;height:3px;
-  background:linear-gradient(90deg,transparent,var(--gold),transparent);
-  margin:16px auto 0;border-radius:2px;
-}
+  .card {
+    background: var(--paper);
+    padding: 28px 24px;
+    border-right: 2px solid var(--ink);
+    border-bottom: 2px solid var(--ink);
+    transition: background 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
 
-/* ===== NOTIFICATIONS ===== */
-.notif-section{background:var(--navy2);}
-.notif-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
-.notif-card{
-  background:var(--glass);
-  border:1px solid var(--glass-border);
-  border-radius:var(--radius);
-  padding:20px;
-  display:flex;gap:16px;align-items:flex-start;
-  transition:var(--transition);cursor:pointer;
-  position:relative;overflow:hidden;
-}
-.notif-card::before{
-  content:'';position:absolute;top:0;left:0;right:0;height:2px;
-  background:linear-gradient(90deg,transparent,var(--gold),transparent);
-  transform:scaleX(0);transition:var(--transition);
-}
-.notif-card:hover{border-color:rgba(255,200,0,0.4);transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,0,0,0.3);}
-.notif-card:hover::before{transform:scaleX(1);}
-.notif-badge{
-  min-width:44px;height:44px;border-radius:10px;
-  display:flex;align-items:center;justify-content:center;font-size:20px;
-}
-.nb-new{background:rgba(200,0,0,0.2);border:1px solid rgba(200,0,0,0.4);}
-.nb-imp{background:rgba(255,150,0,0.2);border:1px solid rgba(255,150,0,0.4);}
-.nb-res{background:rgba(0,180,80,0.2);border:1px solid rgba(0,180,80,0.4);}
-.nb-job{background:rgba(80,0,200,0.2);border:1px solid rgba(80,0,200,0.4);}
-.notif-body{}
-.notif-date{font-size:10px;color:var(--text-muted);letter-spacing:1px;font-weight:600;margin-bottom:5px;}
-.notif-title{font-size:14px;font-weight:700;color:white;line-height:1.4;margin-bottom:6px;}
-.notif-desc{font-size:12px;color:rgba(255,255,255,0.55);line-height:1.6;}
-.new-tag{
-  display:inline-block;background:var(--red);color:white;
-  font-size:9px;font-weight:700;letter-spacing:1px;
-  padding:2px 7px;border-radius:4px;margin-left:6px;
-  animation:blink 1.5s ease-in-out infinite;
-}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:0.5}}
+  .card:hover { background: var(--ink); color: var(--paper); }
+  .card:hover .card-icon { filter: invert(1); }
+  .card:hover .card-label { color: #aaa; }
 
-/* ===== COURSES ===== */
-.courses-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;}
-.course-card{
-  background:var(--glass);border:1px solid var(--glass-border);
-  border-radius:var(--radius);padding:28px 20px;text-align:center;
-  transition:var(--transition);cursor:pointer;position:relative;overflow:hidden;
-  group:true;
-}
-.course-card::after{
-  content:'';position:absolute;inset:0;
-  background:radial-gradient(circle at 50% 100%,rgba(255,200,0,0.06),transparent 60%);
-  opacity:0;transition:var(--transition);
-}
-.course-card:hover{border-color:rgba(255,200,0,0.5);transform:translateY(-6px);box-shadow:0 20px 50px rgba(0,0,0,0.3);}
-.course-card:hover::after{opacity:1;}
-.course-icon{
-  width:64px;height:64px;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;font-size:28px;
-  margin:0 auto 18px;border:2px solid;
-  position:relative;transition:var(--transition);
-}
-.course-card:hover .course-icon{transform:scale(1.1);}
-.ci-ssc{background:rgba(0,80,200,0.2);border-color:#4488FF;box-shadow:0 0 20px rgba(0,100,255,0.3);}
-.ci-bank{background:rgba(0,150,80,0.2);border-color:#00CC66;box-shadow:0 0 20px rgba(0,200,100,0.3);}
-.ci-rail{background:rgba(150,0,200,0.2);border-color:#AA44FF;box-shadow:0 0 20px rgba(150,0,255,0.3);}
-.ci-bssc{background:rgba(200,100,0,0.2);border-color:#FF8800;box-shadow:0 0 20px rgba(255,120,0,0.3);}
-.ci-bpsc{background:rgba(180,0,0,0.2);border-color:var(--red-bright);box-shadow:0 0 20px rgba(255,0,0,0.3);}
-.ci-math{background:rgba(255,200,0,0.15);border-color:var(--gold);box-shadow:0 0 20px rgba(255,200,0,0.2);}
-.course-name{font-family:'Bebas Neue';font-size:22px;letter-spacing:2px;margin-bottom:6px;}
-.course-desc{font-size:12px;color:rgba(255,255,255,0.55);line-height:1.6;margin-bottom:16px;}
-.course-link{
-  font-size:11px;font-weight:700;letter-spacing:1px;
-  color:var(--gold);text-decoration:none;
-  display:inline-flex;align-items:center;gap:5px;
-  transition:gap 0.2s;
-}
-.course-link:hover{gap:10px;}
+  .card-icon { font-size: 32px; margin-bottom: 14px; display: block; }
+  
+  .card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
 
-/* ===== FEATURES ===== */
-.features-section{background:var(--navy3);}
-.features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;}
-.feat-card{
-  background:var(--glass);border:1px solid var(--glass-border);
-  border-radius:var(--radius);padding:28px 20px;
-  text-align:center;transition:var(--transition);position:relative;overflow:hidden;
-}
-.feat-card::before{
-  content:'';position:absolute;top:0;left:0;right:0;height:3px;
-  background:linear-gradient(90deg,transparent,var(--gold),transparent);
-}
-.feat-card:hover{transform:translateY(-5px);border-color:rgba(255,200,0,0.4);box-shadow:0 15px 40px rgba(0,0,0,0.3);}
-.feat-emoji{font-size:38px;margin-bottom:14px;display:block;}
-.feat-title{font-family:'Bebas Neue';font-size:20px;letter-spacing:2px;margin-bottom:8px;color:var(--gold);}
-.feat-desc{font-size:12px;color:rgba(255,255,255,0.55);line-height:1.7;}
+  .card-label {
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
 
-/* ===== BLOG ===== */
-.blog-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;}
-.blog-card{
-  background:var(--glass);border:1px solid var(--glass-border);
-  border-radius:var(--radius);overflow:hidden;
-  transition:var(--transition);cursor:pointer;
-}
-.blog-card:hover{transform:translateY(-5px);box-shadow:0 20px 50px rgba(0,0,0,0.3);border-color:rgba(255,200,0,0.3);}
-.blog-img{
-  height:160px;position:relative;overflow:hidden;
-  display:flex;align-items:center;justify-content:center;
-  font-size:60px;
-}
-.blog-img-1{background:linear-gradient(135deg,rgba(200,0,0,0.3),rgba(100,0,0,0.1));}
-.blog-img-2{background:linear-gradient(135deg,rgba(0,100,200,0.3),rgba(0,50,100,0.1));}
-.blog-img-3{background:linear-gradient(135deg,rgba(0,150,80,0.3),rgba(0,80,40,0.1));}
-.blog-img-4{background:linear-gradient(135deg,rgba(150,0,200,0.3),rgba(80,0,120,0.1));}
-.blog-cat{
-  position:absolute;top:12px;left:12px;
-  background:var(--red);color:white;
-  font-size:10px;font-weight:700;letter-spacing:1px;
-  padding:3px 10px;border-radius:5px;
-}
-.blog-body{padding:20px;}
-.blog-date{font-size:10px;color:var(--text-muted);letter-spacing:1px;margin-bottom:8px;}
-.blog-title{font-size:15px;font-weight:700;line-height:1.5;margin-bottom:10px;color:white;}
-.blog-excerpt{font-size:12px;color:rgba(255,255,255,0.5);line-height:1.7;margin-bottom:14px;}
-.blog-read{
-  font-size:11px;font-weight:700;color:var(--gold);letter-spacing:1px;
-  text-decoration:none;display:inline-flex;align-items:center;gap:5px;transition:gap 0.2s;
-}
-.blog-read:hover{gap:10px;}
+  .card-body {
+    font-family: 'Noto Sans Devanagari', sans-serif;
+    font-size: 13px;
+    line-height: 1.7;
+    font-weight: 300;
+  }
 
-/* ===== WHATSAPP SECTION ===== */
-.wa-section{
-  background:linear-gradient(135deg,#051a0a,#020e05);
-  border-top:1px solid rgba(0,200,80,0.2);
-  border-bottom:1px solid rgba(0,200,80,0.2);
-  padding:70px 40px;text-align:center;
-  position:relative;overflow:hidden;
-}
-.wa-section::before{
-  content:'';position:absolute;
-  width:600px;height:600px;
-  background:radial-gradient(circle,rgba(0,200,80,0.08),transparent 70%);
-  top:50%;left:50%;transform:translate(-50%,-50%);
-}
-.wa-icon{
-  width:100px;height:100px;
-  background:linear-gradient(135deg,#25D366,#128C7E);
-  border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  font-size:50px;margin:0 auto 24px;
-  box-shadow:0 0 40px rgba(37,211,102,0.4);
-  animation:waPulse 2.5s ease-in-out infinite;
-}
-@keyframes waPulse{
-  0%,100%{box-shadow:0 0 30px rgba(37,211,102,0.3);}
-  50%{box-shadow:0 0 60px rgba(37,211,102,0.6),0 0 100px rgba(37,211,102,0.2);}
-}
-.wa-title{font-family:'Bebas Neue';font-size:42px;letter-spacing:3px;margin-bottom:10px;}
-.wa-desc{font-size:15px;color:rgba(255,255,255,0.65);margin-bottom:30px;font-family:'Tiro Devanagari Hindi',serif;line-height:1.7;}
-.wa-btn{
-  display:inline-flex;align-items:center;gap:12px;
-  background:linear-gradient(135deg,#25D366,#128C7E);
-  color:white;text-decoration:none;
-  padding:16px 36px;border-radius:40px;
-  font-size:16px;font-weight:700;letter-spacing:1px;
-  box-shadow:0 0 30px rgba(37,211,102,0.4);
-  transition:var(--transition);
-  animation:waShine 3s ease-in-out infinite;
-}
-@keyframes waShine{
-  0%,100%{box-shadow:0 0 20px rgba(37,211,102,0.3);}
-  50%{box-shadow:0 0 50px rgba(37,211,102,0.6);}
-}
-.wa-btn:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 0 60px rgba(37,211,102,0.6);}
-.wa-note{margin-top:16px;font-size:12px;color:rgba(255,255,255,0.4);letter-spacing:1px;}
+  /* TIMELINE */
+  .timeline {
+    position: relative;
+    padding-left: 40px;
+    margin: 30px 0;
+  }
 
-/* ===== TESTIMONIALS ===== */
-.testi-section{background:var(--navy2);}
-.testi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;}
-.testi-card{
-  background:var(--glass);border:1px solid var(--glass-border);
-  border-radius:var(--radius);padding:24px;
-  transition:var(--transition);position:relative;
-}
-.testi-card::before{content:'"';font-size:80px;color:rgba(255,200,0,0.1);font-family:'Playfair Display',serif;position:absolute;top:10px;right:20px;line-height:1;}
-.testi-card:hover{transform:translateY(-4px);border-color:rgba(255,200,0,0.3);}
-.testi-stars{color:var(--gold);font-size:14px;margin-bottom:12px;letter-spacing:3px;}
-.testi-text{font-size:13px;color:rgba(255,255,255,0.7);line-height:1.8;margin-bottom:18px;font-family:'Tiro Devanagari Hindi',serif;}
-.testi-author{display:flex;align-items:center;gap:12px;}
-.testi-avatar{
-  width:44px;height:44px;border-radius:50%;
-  background:linear-gradient(135deg,var(--red),#FF4400);
-  display:flex;align-items:center;justify-content:center;
-  font-size:18px;border:2px solid rgba(255,200,0,0.3);
-}
-.testi-name{font-weight:700;font-size:14px;color:white;}
-.testi-exam{font-size:11px;color:var(--text-muted);letter-spacing:1px;}
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 0; bottom: 0;
+    width: 2px;
+    background: var(--ink);
+  }
 
-/* ===== CONTACT ===== */
-.contact-section{background:var(--navy3);}
-.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;}
-.contact-info{display:flex;flex-direction:column;gap:20px;}
-.contact-item{
-  display:flex;align-items:flex-start;gap:16px;
-  background:var(--glass);border:1px solid var(--glass-border);
-  border-radius:var(--radius);padding:20px;
-  transition:var(--transition);
-}
-.contact-item:hover{border-color:rgba(255,200,0,0.3);transform:translateX(5px);}
-.contact-icon{
-  width:48px;height:48px;min-width:48px;
-  background:rgba(200,0,0,0.2);border:1px solid rgba(200,0,0,0.4);
-  border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;
-}
-.contact-label{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--text-muted);margin-bottom:4px;}
-.contact-value{font-size:16px;font-weight:700;color:white;}
-.contact-map{
-  background:var(--glass);border:1px solid var(--glass-border);
-  border-radius:var(--radius);overflow:hidden;height:320px;
-  display:flex;align-items:center;justify-content:center;
-  flex-direction:column;gap:16px;
-  font-size:14px;color:rgba(255,255,255,0.5);
-  position:relative;
-}
-.map-pin-anim{
-  width:60px;height:60px;
-  background:rgba(200,0,0,0.2);border:2px solid var(--red);
-  border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;
-  animation:mapPulse 2s ease-in-out infinite;
-}
-@keyframes mapPulse{
-  0%,100%{box-shadow:0 0 0 0 rgba(200,0,0,0.4);}
-  50%{box-shadow:0 0 0 20px rgba(200,0,0,0);}
-}
+  .timeline-item {
+    position: relative;
+    margin-bottom: 40px;
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: all 0.5s ease;
+  }
 
-/* ===== FOOTER ===== */
-footer{
-  background:linear-gradient(135deg,#030510,#060818);
-  border-top:1px solid var(--glass-border);
-  padding:50px 40px 20px;
-}
-.footer-grid{
-  display:grid;grid-template-columns:2fr 1fr 1fr;gap:40px;
-  max-width:1200px;margin:0 auto;
-  padding-bottom:40px;border-bottom:1px solid var(--glass-border);
-}
-.footer-logo-area{margin-bottom:16px;}
-.footer-desc{font-size:13px;color:rgba(255,255,255,0.5);line-height:1.8;margin-bottom:20px;font-family:'Tiro Devanagari Hindi',serif;}
-.footer-social{display:flex;gap:10px;}
-.social-btn{
-  width:38px;height:38px;border-radius:10px;
-  background:var(--glass);border:1px solid var(--glass-border);
-  display:flex;align-items:center;justify-content:center;font-size:16px;
-  text-decoration:none;transition:var(--transition);
-}
-.social-btn:hover{border-color:rgba(255,200,0,0.4);transform:translateY(-2px);}
-.footer-head{font-family:'Bebas Neue';font-size:18px;letter-spacing:2px;color:var(--gold);margin-bottom:18px;}
-.footer-links{display:flex;flex-direction:column;gap:10px;}
-.footer-link{color:rgba(255,255,255,0.55);text-decoration:none;font-size:13px;transition:color 0.2s;display:flex;align-items:center;gap:7px;}
-.footer-link:hover{color:var(--gold);}
-.footer-link::before{content:'›';color:var(--red);font-size:16px;}
-.footer-bottom{
-  max-width:1200px;margin:20px auto 0;
-  display:flex;align-items:center;justify-content:space-between;
-  font-size:12px;color:rgba(255,255,255,0.3);flex-wrap:wrap;gap:10px;
-}
-.footer-bottom span{color:var(--gold);}
+  .timeline-item.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
 
-/* ===== FLOATING WA BUTTON ===== */
-.float-wa{
-  position:fixed;bottom:28px;right:28px;z-index:100;
-  width:60px;height:60px;
-  background:linear-gradient(135deg,#25D366,#128C7E);
-  border-radius:50%;
-  display:flex;align-items:center;justify-content:center;font-size:28px;
-  box-shadow:0 0 0 0 rgba(37,211,102,0.5);
-  text-decoration:none;
-  animation:floatWA 2s ease-in-out infinite;
-  transition:transform 0.2s;
-}
-.float-wa:hover{transform:scale(1.1);}
-@keyframes floatWA{
-  0%{box-shadow:0 0 0 0 rgba(37,211,102,0.5);}
-  70%{box-shadow:0 0 0 16px rgba(37,211,102,0);}
-  100%{box-shadow:0 0 0 0 rgba(37,211,102,0);}
-}
-.float-wa-tooltip{
-  position:absolute;right:70px;
-  background:rgba(6,8,24,0.95);border:1px solid rgba(37,211,102,0.3);
-  color:white;font-size:12px;font-weight:700;letter-spacing:1px;
-  padding:8px 14px;border-radius:8px;white-space:nowrap;
-  opacity:0;transition:opacity 0.3s;pointer-events:none;
-}
-.float-wa:hover .float-wa-tooltip{opacity:1;}
+  .timeline-dot {
+    position: absolute;
+    left: -36px;
+    top: 4px;
+    width: 12px;
+    height: 12px;
+    background: var(--accent);
+    border: 2px solid var(--ink);
+  }
 
-/* ===== SCROLL TO TOP ===== */
-.scroll-top{
-  position:fixed;bottom:28px;left:28px;z-index:100;
-  width:44px;height:44px;
-  background:rgba(255,200,0,0.15);border:1px solid rgba(255,200,0,0.4);
-  border-radius:50%;display:flex;align-items:center;justify-content:center;
-  font-size:18px;color:var(--gold);cursor:pointer;
-  transition:var(--transition);opacity:0;pointer-events:none;
-  backdrop-filter:blur(10px);
-}
-.scroll-top.visible{opacity:1;pointer-events:all;}
-.scroll-top:hover{background:rgba(255,200,0,0.3);transform:translateY(-3px);}
+  .timeline-year {
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: var(--accent);
+    margin-bottom: 6px;
+  }
 
-/* ===== REVEAL ANIMATION ===== */
-.reveal{opacity:0;transform:translateY(30px);transition:all 0.7s cubic-bezier(0.4,0,0.2,1);}
-.reveal.visible{opacity:1;transform:translateY(0);}
-.reveal-delay-1{transition-delay:0.1s;}
-.reveal-delay-2{transition-delay:0.2s;}
-.reveal-delay-3{transition-delay:0.3s;}
-.reveal-delay-4{transition-delay:0.4s;}
+  .timeline-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
 
-/* ===== MOBILE ===== */
-@media(max-width:900px){
-  .notif-grid,.contact-grid{grid-template-columns:1fr;}
-  .footer-grid{grid-template-columns:1fr 1fr;}
-  .stats-strip{grid-template-columns:repeat(2,1fr);}
-  .hero{height:auto;min-height:auto;}
-  .slide-content{padding:60px 24px 80px;}
-  .slide-deco{display:none;}
-  .section{padding:60px 20px;}
-  .nav-links{display:none;}
-  .hamburger{display:flex;}
-}
-@media(max-width:600px){
-  .footer-grid{grid-template-columns:1fr;}
-  .stats-strip{grid-template-columns:repeat(2,1fr);padding:16px 20px;}
-  .stat-num{font-size:32px;}
-  .topbar{font-size:10px;}
-  .courses-grid{grid-template-columns:1fr 1fr;}
-  .blog-grid{grid-template-columns:1fr;}
-  .testi-grid{grid-template-columns:1fr;}
-  .features-grid{grid-template-columns:1fr 1fr;}
-}
+  .timeline-text {
+    font-family: 'Noto Sans Devanagari', sans-serif;
+    font-size: 14px;
+    line-height: 1.8;
+    color: #333;
+    font-weight: 300;
+  }
+
+  /* PULL QUOTE */
+  .pull-quote {
+    border-top: 3px solid var(--ink);
+    border-bottom: 3px solid var(--ink);
+    padding: 40px 0;
+    margin: 50px 0;
+    text-align: center;
+  }
+
+  .pull-quote p {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(22px, 3vw, 36px);
+    font-style: italic;
+    line-height: 1.4;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .pull-quote cite {
+    display: block;
+    font-family: 'JetBrains Mono';
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--muted);
+    margin-top: 20px;
+    font-style: normal;
+  }
+
+  /* STATS */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 0;
+    border: 2px solid var(--ink);
+    margin: 30px 0;
+  }
+
+  .stat-box {
+    padding: 30px 20px;
+    border-right: 2px solid var(--ink);
+    text-align: center;
+  }
+
+  .stat-box:last-child { border-right: none; }
+
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 42px;
+    font-weight: 700;
+    color: var(--accent);
+    display: block;
+  }
+
+  .stat-label {
+    font-family: 'Noto Sans Devanagari', sans-serif;
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 6px;
+    font-weight: 400;
+  }
+
+  /* COMPARISON TABLE */
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 30px 0;
+    font-size: 13px;
+  }
+
+  .compare-table th {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 14px 16px;
+    text-align: left;
+    font-family: 'JetBrains Mono';
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  .compare-table td {
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--light-line);
+    font-family: 'Noto Sans Devanagari', sans-serif;
+    font-weight: 300;
+    line-height: 1.6;
+  }
+
+  .compare-table tr:hover td { background: #ede8df; }
+
+  .old { color: var(--muted); text-decoration: line-through; font-size: 12px; }
+  .new { color: #1a6b3a; font-weight: 400; }
+
+  /* DANGER ZONE */
+  .danger-box {
+    background: #1a0a0a;
+    color: #f5f0e8;
+    padding: 40px;
+    margin: 40px 0;
+    border-left: 6px solid var(--accent);
+  }
+
+  .danger-box h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    margin-bottom: 16px;
+    color: #ff6b4a;
+  }
+
+  .danger-box p {
+    font-family: 'Noto Sans Devanagari', sans-serif;
+    font-size: 14px;
+    line-height: 1.9;
+    font-weight: 300;
+    color: #ccc;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 60px 40px;
+    text-align: center;
+  }
+
+  footer h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    font-style: italic;
+    margin-bottom: 16px;
+  }
+
+  footer p {
+    font-family: 'Noto Sans Devanagari', sans-serif;
+    font-size: 13px;
+    color: #888;
+    font-weight: 300;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(-8px); }
+  }
+
+  .fade-in-section {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .fade-in-section.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* BIG TEXT DIVIDER */
+  .big-divider {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(60px, 12vw, 140px);
+    font-weight: 700;
+    color: var(--light-line);
+    text-align: center;
+    line-height: 1;
+    padding: 20px;
+    overflow: hidden;
+    user-select: none;
+  }
+
+  .tag-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 20px 0;
+  }
+
+  .tag {
+    border: 1px solid var(--ink);
+    padding: 5px 14px;
+    font-size: 11px;
+    letter-spacing: 1px;
+    font-family: 'JetBrains Mono';
+    cursor: default;
+    transition: all 0.2s;
+  }
+
+  .tag:hover { background: var(--ink); color: var(--paper); }
+
+  @media (max-width: 600px) {
+    .hero { padding: 40px 20px; }
+    .hero-title, .year-tag, .hero-subtitle { padding-left: 60px; }
+    .hero::before { left: 44px; }
+    .section { padding: 60px 20px; }
+    .stat-num { font-size: 30px; }
+  }
 </style>
 </head>
 <body>
 
-<!-- Custom cursor -->
-<div class="cursor" id="cursor"></div>
+<!-- HERO -->
+<div class="hero">
+  <div class="year-tag">◆ Deep Analysis · 2025 — 2075</div>
+  <h1 class="hero-title">
+    भविष्य की<br>
+    <span class="accent-word">शिक्षा</span>
+  </h1>
+  <p class="hero-subtitle">
+    आने वाले 50 सालों में education कैसे बदलेगी — कहाँ पढ़ेंगे, कैसे पढ़ेंगे, 
+    क्या पढ़ेंगे, और कौन पढ़ाएगा। एक honest, data-driven analysis।
+  </p>
+  <div class="scroll-hint">↓ SCROLL ↓</div>
+</div>
 
-<!-- Floating WhatsApp -->
-<a href="https://wa.me/917488664125?text=Hello%20CSC%20Campus!%20Mujhe%20admission%20ke%20baare%20mein%20jaankari%20chahiye." class="float-wa" target="_blank" rel="noopener">
-  💬
-  <div class="float-wa-tooltip">WhatsApp par Poochhen!</div>
-</a>
-
-<!-- Scroll to top -->
-<button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
-
-<!-- TOPBAR -->
-<div class="topbar">
-  <div class="topbar-left">
-    <a href="https://wa.me/917488664125" target="_blank">📞 7488664125</a>
-  </div>
-  <div class="marquee-wrap">
-    <span class="marquee-text">🔴 New Basic Batch Start Ho Raha Hai — Abhi Join Karein! &nbsp;&nbsp;&nbsp; ⭐ N.K. Suman Sir ke saath Maths & Reasoning Master Karein &nbsp;&nbsp;&nbsp; 🎯 SSC | BANK | RAILWAY | BSSC | BPSC — Sabke Liye Coaching &nbsp;&nbsp;&nbsp; 📍 Near Ursuline School, Rangbhumi Dhalai Road, Purnea</span>
-  </div>
-  <div class="topbar-right">
-    <a href="https://wa.me/917488664125" target="_blank">💬 WhatsApp</a>
+<!-- STATS -->
+<div class="section fade-in-section">
+  <div class="section-number">00 — Context</div>
+  <h2 class="section-title">Numbers जो सब कुछ बदल देंगे</h2>
+  <div class="stats-row">
+    <div class="stat-box">
+      <span class="stat-num">90%</span>
+      <div class="stat-label">Jobs जो 2030 तक बदल जाएंगी AI की वजह से</div>
+    </div>
+    <div class="stat-box">
+      <span class="stat-num">65%</span>
+      <div class="stat-label">आज के बच्चे ऐसी jobs करेंगे जो अभी exist नहीं करती</div>
+    </div>
+    <div class="stat-box">
+      <span class="stat-num">$7T</span>
+      <div class="stat-label">Global EdTech market size by 2040 (projected)</div>
+    </div>
+    <div class="stat-box">
+      <span class="stat-num">∞</span>
+      <div class="stat-label">Learning अब कभी बंद नहीं होगी — lifelong होगी</div>
+    </div>
   </div>
 </div>
 
-<!-- NAVBAR -->
-<nav class="navbar" id="navbar">
-  <a href="#" class="nav-logo">
-    <div class="nav-logo-icon" style="background:none;border:none;box-shadow:none;padding:0;">
-  <img src="logo.png" alt="CSC Campus Logo" style="width:66px;height:66px;object-fit:contain;border-radius:50%;">
-</div>
-    <div class="nav-brand">
-      <div class="nav-name">CSC Campus</div>
-      <div class="nav-tagline">The Success Point • Purnea</div>
-    </div>
-  </a>
-  <div class="nav-links">
-    <a href="#home" class="nav-link">Home</a>
-    <a href="#notifications" class="nav-link">Notifications</a>
-    <a href="#courses" class="nav-link">Courses</a>
-    <a href="#blog" class="nav-link">Blog</a>
-    <a href="#contact" class="nav-link">Contact</a>
-    <a href="https://wa.me/917488664125?text=Hello!%20Admission%20enquiry" target="_blank" class="nav-link nav-cta">💬 Join Now</a>
-  </div>
-  <div class="hamburger" id="hamburger" onclick="toggleMenu()">
-    <span></span><span></span><span></span>
-  </div>
-</nav>
+<div class="big-divider">WHERE</div>
 
-<!-- Mobile Menu -->
-<div class="mobile-menu" id="mobileMenu">
-  <a href="#home" class="mobile-link" onclick="toggleMenu()">🏠 Home</a>
-  <a href="#notifications" class="mobile-link" onclick="toggleMenu()">🔔 Notifications</a>
-  <a href="#courses" class="mobile-link" onclick="toggleMenu()">📚 Courses</a>
-  <a href="#blog" class="mobile-link" onclick="toggleMenu()">📝 Blog</a>
-  <a href="#contact" class="mobile-link" onclick="toggleMenu()">📍 Contact</a>
-  <a href="https://wa.me/917488664125" target="_blank" class="mobile-link" style="color:#25D366;">💬 WhatsApp Par Poochhen</a>
-</div>
+<!-- SECTION 1: WHERE -->
+<div class="section fade-in-section">
+  <div class="section-number">01 — Location</div>
+  <h2 class="section-title">कहाँ पढ़ेंगे लोग?</h2>
 
-<!-- HERO SLIDER -->
-<section class="hero" id="home">
-  <div class="slides-container" id="slidesContainer">
-
-    <!-- Slide 1 -->
-    <div class="slide slide-1 active">
-      <div class="slide-bg-shape"></div>
-      <div class="slide-grid"></div>
-      <div class="slide-content">
-        <div class="slide-badge">🔥 NEW BATCH STARTING</div>
-        <div class="slide-title">
-          <span class="gold">Maths &</span><br>
-          <span class="gold">Reasoning</span><br>
-          <span style="color:white;font-size:0.55em;letter-spacing:2px;">MASTER CLASS</span>
-        </div>
-        <div class="slide-desc">जहाँ समझ बनती है, वहीं Selection होता है। N.K. Suman Sir के साथ अपना सपना पूरा करें।</div>
-        <div class="slide-actions">
-          <a href="https://wa.me/917488664125?text=Maths%20Reasoning%20batch%20ke%20liye%20enquiry" target="_blank" class="btn-primary">💬 Abhi Join Karein</a>
-          <a href="#courses" class="btn-outline">📚 Courses Dekhein</a>
-        </div>
-      </div>
-      <div class="slide-deco">
-        <div class="deco-circle deco-c1"></div>
-        <div class="deco-circle deco-c2"></div>
-        <div class="deco-circle deco-c3"></div>
-        <div class="deco-center">🧮</div>
+  <div class="cards-grid">
+    <div class="card">
+      <span class="card-icon">🏫</span>
+      <div class="card-label">2025–2030</div>
+      <div class="card-title">Hybrid Schools</div>
+      <div class="card-body">
+        Physical school + online mix। हफ्ते में 3 दिन school, 2 दिन घर से। India में already CBSE schools hybrid model adopt कर रहे हैं।
       </div>
     </div>
-
-    <!-- Slide 2 -->
-    <div class="slide slide-2">
-      <div class="slide-bg-shape"></div>
-      <div class="slide-grid"></div>
-      <div class="slide-content">
-        <div class="slide-badge" style="background:rgba(0,200,80,0.12);border-color:rgba(0,200,80,0.4);color:#00CC66;">🏦 BANK COACHING</div>
-        <div class="slide-title">
-          <span style="color:white;">Bank &</span><br>
-          <span class="gold">SSC Exam</span><br>
-          <span style="color:#00CC66;font-size:0.5em;letter-spacing:2px;">PREPARATION</span>
-        </div>
-        <div class="slide-desc">Bank PO, Clerk, SSC CGL, CHSL — सभी के लिए Expert Faculty के साथ Smart Preparation।</div>
-        <div class="slide-actions">
-          <a href="https://wa.me/917488664125?text=Bank%20SSC%20coaching%20enquiry" target="_blank" class="btn-primary">💬 Free Demo Class</a>
-          <a href="#courses" class="btn-outline">📋 Syllabus Dekhein</a>
-        </div>
-      </div>
-      <div class="slide-deco">
-        <div class="deco-circle deco-c1" style="border-color:rgba(0,200,80,0.15)"></div>
-        <div class="deco-circle deco-c2" style="border-color:rgba(0,150,60,0.2)"></div>
-        <div class="deco-circle deco-c3" style="border-color:rgba(0,200,80,0.25)"></div>
-        <div class="deco-center">🏦</div>
+    <div class="card">
+      <span class="card-icon">🥽</span>
+      <div class="card-label">2030–2040</div>
+      <div class="card-title">Virtual Reality Classes</div>
+      <div class="card-body">
+        VR headset पहनो और Roman Empire में पहुँच जाओ। Meta, Apple सब invest कर रहे हैं। Geography की कोई limit नहीं रहेगी।
       </div>
     </div>
-
-    <!-- Slide 3 -->
-    <div class="slide slide-3">
-      <div class="slide-bg-shape"></div>
-      <div class="slide-grid"></div>
-      <div class="slide-content">
-        <div class="slide-badge" style="background:rgba(255,150,0,0.12);border-color:rgba(255,150,0,0.4);color:#FF8800;">🚂 RAILWAY COACHING</div>
-        <div class="slide-title">
-          <span style="color:white;">Railway</span><br>
-          <span class="gold">RRB &</span><br>
-          <span style="color:#FF8800;font-size:0.5em;letter-spacing:2px;">NTPC PREPARATION</span>
-        </div>
-        <div class="slide-desc">Railway Group D, NTPC, ALP — Concept-based approach se guaranteed selection की taiyari।</div>
-        <div class="slide-actions">
-          <a href="https://wa.me/917488664125?text=Railway%20coaching%20enquiry" target="_blank" class="btn-primary" style="background:linear-gradient(135deg,#FF6600,#FF8800);">💬 Enquiry Karein</a>
-          <a href="#courses" class="btn-outline">📚 Details Dekhein</a>
-        </div>
-      </div>
-      <div class="slide-deco">
-        <div class="deco-circle deco-c1" style="border-color:rgba(255,150,0,0.15)"></div>
-        <div class="deco-circle deco-c2" style="border-color:rgba(200,100,0,0.2)"></div>
-        <div class="deco-circle deco-c3" style="border-color:rgba(255,150,0,0.25)"></div>
-        <div class="deco-center">🚂</div>
+    <div class="card">
+      <span class="card-icon">🌍</span>
+      <div class="card-label">2040–2060</div>
+      <div class="card-title">Global Classrooms</div>
+      <div class="card-body">
+        Tokyo का student, Mumbai के teacher से, Berlin के साथी के साथ पढ़ेगा। एक ही class में दुनिया के 40 देशों के बच्चे।
       </div>
     </div>
-
-    <!-- Slide 4 -->
-    <div class="slide slide-4">
-      <div class="slide-bg-shape"></div>
-      <div class="slide-grid"></div>
-      <div class="slide-content">
-        <div class="slide-badge" style="background:rgba(100,0,200,0.12);border-color:rgba(100,0,200,0.4);color:#AA44FF;">🏛️ BPSC COACHING</div>
-        <div class="slide-title">
-          <span style="color:white;">BPSC &</span><br>
-          <span class="gold">BSSC</span><br>
-          <span style="color:#AA44FF;font-size:0.5em;letter-spacing:2px;">STATE EXAM PREP</span>
-        </div>
-        <div class="slide-desc">Bihar ke top government jobs ke liye comprehensive preparation — BPSC, BSSC, पूरी taiyari yahan।</div>
-        <div class="slide-actions">
-          <a href="https://wa.me/917488664125?text=BPSC%20BSSC%20coaching%20enquiry" target="_blank" class="btn-primary" style="background:linear-gradient(135deg,#6600CC,#AA44FF);">💬 Join Karein</a>
-          <a href="#blog" class="btn-outline">📰 Latest Updates</a>
-        </div>
-      </div>
-      <div class="slide-deco">
-        <div class="deco-circle deco-c1" style="border-color:rgba(100,0,200,0.15)"></div>
-        <div class="deco-circle deco-c2" style="border-color:rgba(80,0,150,0.2)"></div>
-        <div class="deco-circle deco-c3" style="border-color:rgba(100,0,200,0.25)"></div>
-        <div class="deco-center">🏛️</div>
+    <div class="card">
+      <span class="card-icon">🧠</span>
+      <div class="card-label">2060+</div>
+      <div class="card-title">Neural Interface?</div>
+      <div class="card-body">
+        Elon Musk का Neuralink idea — directly brain में knowledge upload। Sounds crazy, लेकिन research चल रही है। शायद 50 साल में।
       </div>
     </div>
-
   </div>
 
-  <!-- Slider Controls -->
-  <div class="slider-arrows">
-    <button class="arr-btn" onclick="prevSlide()">‹</button>
-    <button class="arr-btn" onclick="nextSlide()">›</button>
-  </div>
-  <div class="slider-dots" id="sliderDots"></div>
-  <div class="slide-progress" id="slideProgress"></div>
-</section>
-
-<!-- STATS STRIP -->
-<div class="stats-strip">
-  <div class="stat-item reveal">
-    <div class="stat-num" data-count="5000">0</div>
-    <div class="stat-label">Students Selected+</div>
-  </div>
-  <div class="stat-item reveal reveal-delay-1">
-    <div class="stat-num" data-count="8">0</div>
-    <div class="stat-label">Years Experience</div>
-  </div>
-  <div class="stat-item reveal reveal-delay-2">
-    <div class="stat-num" data-count="15">0</div>
-    <div class="stat-label">Expert Faculty</div>
-  </div>
-  <div class="stat-item reveal reveal-delay-3">
-    <div class="stat-num" data-count="98">0</div>
-    <div class="stat-label">% Success Rate</div>
+  <div class="pull-quote">
+    <p>"School की building एक option बन जाएगी, requirement नहीं।"</p>
+    <cite>— Future Education Trend, World Economic Forum 2024</cite>
   </div>
 </div>
 
-<!-- NOTIFICATIONS -->
-<section class="section notif-section" id="notifications">
-  <div class="section-inner">
-    <div class="section-header reveal">
-      <div class="section-tag">🔔 LATEST UPDATES</div>
-      <div class="section-title">Notifications & <span class="g">Alerts</span></div>
-      <div class="gold-divider"></div>
-      <div class="section-sub">Sabse latest news, exam dates aur batch updates yahan dekhein</div>
+<div class="big-divider">HOW</div>
+
+<!-- SECTION 2: HOW -->
+<div class="section fade-in-section">
+  <div class="section-number">02 — Method</div>
+  <h2 class="section-title">कैसे पढ़ेंगे?</h2>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-year">PHASE 01 · अभी हो रहा है</div>
+      <div class="timeline-heading">AI Tutors — Personalized Learning</div>
+      <div class="timeline-text">
+        Khan Academy का Khanmigo, Google का LearnLM — ये AI tutors हर student को उसके pace पर पढ़ाते हैं। 
+        एक slow learner को 3 बार same concept अलग-अलग तरीके से समझाएगा। 
+        एक fast learner को आगे push करेगा। Teacher का ratio 1:40 नहीं, 1:1 होगा।
+      </div>
     </div>
-    <div class="notif-grid">
-      <div class="notif-card reveal">
-        <div class="notif-badge nb-new">🔥</div>
-        <div class="notif-body">
-          <div class="notif-date">08 MARCH 2026</div>
-          <div class="notif-title">New Basic Batch Start — Maths & Reasoning <span class="new-tag">NEW</span></div>
-          <div class="notif-desc">N.K. Suman Sir ke saath new basic batch 15 March 2026 se shuru ho rahi hai. SSC, Bank, Railway ke liye complete preparation.</div>
-        </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-year">PHASE 02 · 2027–2035</div>
+      <div class="timeline-heading">Gamification — खेल-खेल में पढ़ाई</div>
+      <div class="timeline-text">
+        Duolingo ने prove किया — अगर पढ़ाई को game बना दो तो लोग खुद पढ़ते हैं। 
+        Future में सारे subjects ऐसे होंगे। History एक RPG game होगी जहाँ तुम Mughal era में decisions लोगे।
+        Physics एक puzzle game होगी। Marks नहीं, XP points मिलेंगे।
       </div>
-      <div class="notif-card reveal reveal-delay-1">
-        <div class="notif-badge nb-imp">⚠️</div>
-        <div class="notif-body">
-          <div class="notif-date">05 MARCH 2026</div>
-          <div class="notif-title">SSC CGL 2026 Notification Released <span class="new-tag">IMPORTANT</span></div>
-          <div class="notif-desc">SSC CGL 2026 ka official notification aa gaya hai. Form fill karne ki last date 2 April 2026 hai. Abhi taiyari shuru karein.</div>
-        </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-year">PHASE 03 · 2035–2050</div>
+      <div class="timeline-heading">Project-Based & Real World Learning</div>
+      <div class="timeline-text">
+        Rote learning completely खत्म। Syllabus नहीं, problems होंगी। 
+        "इस city का water problem कैसे solve करोगे?" — इसके लिए तुम्हें Math, Science, Civics, Communication सब चाहिए।
+        Learning automatically interdisciplinary हो जाएगी।
       </div>
-      <div class="notif-card reveal reveal-delay-2">
-        <div class="notif-badge nb-res">✅</div>
-        <div class="notif-body">
-          <div class="notif-date">01 MARCH 2026</div>
-          <div class="notif-title">BPSC 70th Result — CSC Campus Students Selected!</div>
-          <div class="notif-desc">Hamein khushi hai ki BPSC 70th Prelims mein CSC Campus ke 47 students ne qualification hasil ki. Congrats!</div>
-        </div>
-      </div>
-      <div class="notif-card reveal reveal-delay-3">
-        <div class="notif-badge nb-job">📋</div>
-        <div class="notif-body">
-          <div class="notif-date">28 FEB 2026</div>
-          <div class="notif-title">Railway RRB NTPC 2026 — Application Open</div>
-          <div class="notif-desc">RRB NTPC 2026 application form bharna shuru ho gaya hai. 11558 vacancies hain. CSC Campus mein special batch available hai.</div>
-        </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-year">PHASE 04 · 2050+</div>
+      <div class="timeline-heading">Adaptive Bio-Learning</div>
+      <div class="timeline-text">
+        Wearables brain activity monitor करेंगे। जब concentration कम हो — lesson automatically pause। 
+        जब flow state हो — harder content push। 
+        Body और mind की biology के according customized learning।
       </div>
     </div>
   </div>
-</section>
+</div>
 
-<!-- COURSES -->
-<section class="section" id="courses" style="background:var(--navy);">
-  <div class="section-inner">
-    <div class="section-header reveal">
-      <div class="section-tag">📚 OUR COURSES</div>
-      <div class="section-title">Hamare <span class="g">Courses</span></div>
-      <div class="gold-divider"></div>
-      <div class="section-sub">Har exam ke liye expert coaching — concept se selection tak</div>
+<div class="big-divider">WHAT</div>
+
+<!-- SECTION 3: WHAT -->
+<div class="section fade-in-section">
+  <div class="section-number">03 — Curriculum</div>
+  <h2 class="section-title">क्या पढ़ेंगे?</h2>
+
+  <p style="font-family:'Noto Sans Devanagari';font-size:14px;line-height:1.9;color:#333;font-weight:300;margin-bottom:30px;">
+    यह सबसे बड़ा सवाल है। Current curriculum 150 साल पुराने Industrial Age के लिए design हुई थी — 
+    factory workers बनाने के लिए। Future में यह completely बदलेगी।
+  </p>
+
+  <table class="compare-table">
+    <thead>
+      <tr>
+        <th>Subject</th>
+        <th>आज क्या पढ़ाते हैं</th>
+        <th>Future में क्या होगा</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Math</strong></td>
+        <td class="old">Long division, calculus रटना</td>
+        <td class="new">Data literacy, statistical thinking, AI के साथ problem solving</td>
+      </tr>
+      <tr>
+        <td><strong>Science</strong></td>
+        <td class="old">Theory याद करना, diagrams बनाना</td>
+        <td class="new">Biotech ethics, climate science, hands-on experimentation</td>
+      </tr>
+      <tr>
+        <td><strong>History</strong></td>
+        <td class="old">Dates और battles रटना</td>
+        <td class="new">Pattern recognition, systems thinking, civilizational lessons</td>
+      </tr>
+      <tr>
+        <td><strong>Language</strong></td>
+        <td class="old">Grammar rules, essays</td>
+        <td class="new">Emotional intelligence, storytelling, AI prompting skills</td>
+      </tr>
+      <tr>
+        <td><strong>New: AI Literacy</strong></td>
+        <td class="old">नहीं था</td>
+        <td class="new">How AI works, ethics, how to use/question AI tools</td>
+      </tr>
+      <tr>
+        <td><strong>New: Mental Health</strong></td>
+        <td class="old">नहीं था</td>
+        <td class="new">Emotional regulation, mindfulness, resilience building</td>
+      </tr>
+      <tr>
+        <td><strong>New: Financial Literacy</strong></td>
+        <td class="old">नहीं था (still नहीं है!)</td>
+        <td class="new">Investing, taxes, crypto, personal finance — mandatory subject</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="tag-row">
+    <div class="tag">Critical Thinking</div>
+    <div class="tag">Creativity</div>
+    <div class="tag">Collaboration</div>
+    <div class="tag">Communication</div>
+    <div class="tag">AI Literacy</div>
+    <div class="tag">Emotional Intelligence</div>
+    <div class="tag">Climate Science</div>
+    <div class="tag">Ethics</div>
+    <div class="tag">Entrepreneurship</div>
+    <div class="tag">Systems Thinking</div>
+  </div>
+  <p style="font-family:'JetBrains Mono';font-size:10px;color:var(--muted);letter-spacing:2px;">↑ FUTURE के सबसे important skills</p>
+</div>
+
+<div class="big-divider">WHO</div>
+
+<!-- SECTION 4: WHO TEACHES -->
+<div class="section fade-in-section">
+  <div class="section-number">04 — Educators</div>
+  <h2 class="section-title">कौन पढ़ाएगा?</h2>
+
+  <div class="cards-grid">
+    <div class="card">
+      <span class="card-icon">🤖</span>
+      <div class="card-label">Role #1</div>
+      <div class="card-title">AI Tutor</div>
+      <div class="card-body">
+        24/7 available, infinite patience, personalized। Basic concepts, Q&A, practice — AI handle करेगा।
+        Human teacher का 60% काम AI ले लेगा।
+      </div>
     </div>
-    <div class="courses-grid">
-      <div class="course-card reveal">
-        <div class="course-icon ci-ssc">🏆</div>
-        <div class="course-name">SSC Coaching</div>
-        <div class="course-desc">CGL, CHSL, MTS, CPO — sabke liye complete course. Maths, Reasoning, English, GK.</div>
-        <a href="https://wa.me/917488664125?text=SSC%20coaching%20details%20chahiye" target="_blank" class="course-link">Enquiry Karein →</a>
+    <div class="card">
+      <span class="card-icon">👨‍🏫</span>
+      <div class="card-label">Role #2</div>
+      <div class="card-title">Human Mentor</div>
+      <div class="card-body">
+        Teacher अब "knowledge deliverer" नहीं, "coach" बनेगा। Inspire करना, real-world connect करना, 
+        emotional support — यह काम AI नहीं कर सकता।
       </div>
-      <div class="course-card reveal reveal-delay-1">
-        <div class="course-icon ci-bank">🏦</div>
-        <div class="course-name">Bank Coaching</div>
-        <div class="course-desc">IBPS PO, Clerk, SBI PO/Clerk, RBI — interview tak ki taiyari expert faculty ke saath.</div>
-        <a href="https://wa.me/917488664125?text=Bank%20coaching%20details%20chahiye" target="_blank" class="course-link">Enquiry Karein →</a>
+    </div>
+    <div class="card">
+      <span class="card-icon">🌐</span>
+      <div class="card-label">Role #3</div>
+      <div class="card-title">Expert Practitioners</div>
+      <div class="card-body">
+        Real scientists, engineers, artists direct students को पढ़ाएंगे — virtually। 
+        ISRO का scientist, Bollywood director, startup founder — सब accessible होंगे।
       </div>
-      <div class="course-card reveal reveal-delay-2">
-        <div class="course-icon ci-rail">🚂</div>
-        <div class="course-name">Railway</div>
-        <div class="course-desc">RRB NTPC, Group D, ALP, JE — comprehensive preparation with mock tests & previous papers.</div>
-        <a href="https://wa.me/917488664125?text=Railway%20coaching%20details%20chahiye" target="_blank" class="course-link">Enquiry Karein →</a>
-      </div>
-      <div class="course-card reveal reveal-delay-3">
-        <div class="course-icon ci-bssc">📋</div>
-        <div class="course-name">BSSC</div>
-        <div class="course-desc">Bihar State exam — BSSC Inter Level, Graduate Level ke liye targeted preparation.</div>
-        <a href="https://wa.me/917488664125?text=BSSC%20coaching%20details%20chahiye" target="_blank" class="course-link">Enquiry Karein →</a>
-      </div>
-      <div class="course-card reveal reveal-delay-1">
-        <div class="course-icon ci-bpsc">🏛️</div>
-        <div class="course-name">BPSC</div>
-        <div class="course-desc">Bihar PSC Prelims & Mains — GS, Essay, Optional — sab kuch yahan ek jagah.</div>
-        <a href="https://wa.me/917488664125?text=BPSC%20coaching%20details%20chahiye" target="_blank" class="course-link">Enquiry Karein →</a>
-      </div>
-      <div class="course-card reveal reveal-delay-2">
-        <div class="course-icon ci-math">🧮</div>
-        <div class="course-name">Maths & Reasoning</div>
-        <div class="course-desc">N.K. Suman Sir ka special batch — concept clarity + smart tricks = guaranteed success.</div>
-        <a href="https://wa.me/917488664125?text=Maths%20Reasoning%20special%20batch%20details" target="_blank" class="course-link">Join Special Batch →</a>
+    </div>
+    <div class="card">
+      <span class="card-icon">👥</span>
+      <div class="card-label">Role #4</div>
+      <div class="card-title">Peers & Community</div>
+      <div class="card-body">
+        Peer-to-peer learning बढ़ेगा। जो student किसी concept अच्छे से जानता है,
+        वो दूसरों को सिखाएगा। "Teaching is the best learning" — यह model scale होगा।
       </div>
     </div>
   </div>
-</section>
+</div>
 
-<!-- FEATURES -->
-<section class="section features-section">
-  <div class="section-inner">
-    <div class="section-header reveal">
-      <div class="section-tag">⭐ WHY CSC CAMPUS</div>
-      <div class="section-title">Humein Kyun <span class="g">Chunein?</span></div>
-      <div class="gold-divider"></div>
+<!-- DARK WARNING SECTION -->
+<div class="section fade-in-section">
+  <div class="section-number">05 — Risks</div>
+  <h2 class="section-title">Dangers — जो कोई नहीं बोलता</h2>
+
+  <div class="danger-box">
+    <h3>⚠ Digital Divide और बड़ा होगा</h3>
+    <p>
+      India में अभी भी 40 crore+ लोगों के पास reliable internet नहीं है। 
+      Future education जितनी ज्यादा technology पर depend होगी, उतना ज्यादा 
+      rich-poor gap बढ़ेगा। अमीर बच्चों को best AI tutors, VR labs मिलेंगे — 
+      गरीब बच्चे वहीं रहेंगे। यह सबसे बड़ा खतरा है।
+    </p>
+  </div>
+
+  <div class="danger-box" style="background:#0a1a0a; border-color: #2a8a3a;">
+    <h3 style="color:#6bff8a;">🧠 Attention Crisis</h3>
+    <p>
+      Social media ने already attention span 8 seconds कर दी है। Gamified, 
+      dopamine-driven learning से short-term engagement तो बढ़ेगी, लेकिन 
+      deep thinking, boredom tolerance, और sustained focus — ये skills 
+      कम होती जाएंगी। Future में एक बड़ा paradox होगा।
+    </p>
+  </div>
+
+  <div class="danger-box" style="background:#0a0a1a; border-color: #3a3a9a;">
+    <h3 style="color:#8a8aff;">📜 Credentials का Crisis</h3>
+    <p>
+      जब कोई भी घर बैठकर MIT का course कर सकता है, तो degree का क्या मतलब रहेगा? 
+      Companies already skills > degrees prefer कर रही हैं। 
+      आने वाले 20 सालों में traditional university system पर serious existential threat होगा — 
+      खासकर average colleges के लिए।
+    </p>
+  </div>
+</div>
+
+<!-- INDIA SPECIFIC -->
+<div class="section fade-in-section">
+  <div class="section-number">06 — India Focus</div>
+  <h2 class="section-title">India में खास बात</h2>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-year">OPPORTUNITY</div>
+      <div class="timeline-heading">Young Population = Biggest Advantage</div>
+      <div class="timeline-text">
+        India की median age 28 साल है। 2030 तक दुनिया का सबसे बड़ा working-age population 
+        हमारे पास होगा। अगर सही education मिली — India global knowledge superpower बन सकता है।
+        NEP 2020 इसी direction में है।
+      </div>
     </div>
-    <div class="features-grid">
-      <div class="feat-card reveal">
-        <span class="feat-emoji">💡</span>
-        <div class="feat-title">Concept Clarity</div>
-        <div class="feat-desc">Sirf ratta nahin — deep understanding. Har concept ko practical examples se samjhaya jata hai.</div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-year">TREND</div>
+      <div class="timeline-heading">Regional Language Learning का Rise</div>
+      <div class="timeline-text">
+        AI real-time translation की वजह से अब Hindi, Tamil, Telugu में world-class content available होगा।
+        Language barrier खत्म होगा। पहली बार tier-3 cities के students को equal opportunity मिलेगी।
       </div>
-      <div class="feat-card reveal reveal-delay-1">
-        <span class="feat-emoji">⚡</span>
-        <div class="feat-title">Smart Tricks</div>
-        <div class="feat-desc">Time-saving shortcuts jo exam mein kaam aate hain. Speed + Accuracy = Selection.</div>
-      </div>
-      <div class="feat-card reveal reveal-delay-2">
-        <span class="feat-emoji">📝</span>
-        <div class="feat-title">Daily Practice</div>
-        <div class="feat-desc">Roz practice sets, weekly tests aur monthly grand tests se performance track hoti hai.</div>
-      </div>
-      <div class="feat-card reveal reveal-delay-3">
-        <span class="feat-emoji">🎯</span>
-        <div class="feat-title">Mock Tests</div>
-        <div class="feat-desc">Exam pattern ke exactly waise mock tests — real exam ka feel ghar se hi milega.</div>
-      </div>
-      <div class="feat-card reveal reveal-delay-1">
-        <span class="feat-emoji">🙋</span>
-        <div class="feat-title">Doubt Support</div>
-        <div class="feat-desc">Class ke baad bhi doubts clear hote hain — WhatsApp aur personal sessions available.</div>
-      </div>
-      <div class="feat-card reveal reveal-delay-2">
-        <span class="feat-emoji">👨‍🏫</span>
-        <div class="feat-title">Expert Faculty</div>
-        <div class="feat-desc">N.K. Suman Sir jaisi experienced faculty jo sirf padhai nahin, selection ensure karti hai.</div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-year">CHALLENGE</div>
+      <div class="timeline-heading">Coaching Culture vs. Real Learning</div>
+      <div class="timeline-text">
+        JEE, NEET की coaching industry ₹50,000 crore+ की है। यह industry real learning नहीं, 
+        test-cracking सिखाती है। जब AI सब handle करेगा, तब यह model completely obsolete होगा।
+        लेकिन resistance बहुत होगा।
       </div>
     </div>
   </div>
-</section>
+</div>
 
-<!-- BLOG -->
-<section class="section" id="blog" style="background:var(--navy);">
-  <div class="section-inner">
-    <div class="section-header reveal">
-      <div class="section-tag">📰 BLOG & UPDATES</div>
-      <div class="section-title">Latest <span class="g">Articles</span></div>
-      <div class="gold-divider"></div>
-      <div class="section-sub">Study tips, exam updates aur success stories</div>
+<!-- FINAL TAKEAWAY -->
+<div class="section fade-in-section">
+  <div class="section-number">07 — Conclusion</div>
+  <h2 class="section-title">असली बात क्या है?</h2>
+
+  <div class="pull-quote">
+    <p>"Future में सबसे valuable skill यह नहीं कि तुम क्या जानते हो — बल्कि यह है कि तुम कितनी जल्दी नया सीख सकते हो।"</p>
+    <cite>— Learning to Learn: The Meta-Skill</cite>
+  </div>
+
+  <div class="cards-grid">
+    <div class="card">
+      <span class="card-icon">✅</span>
+      <div class="card-title">जो बचेगा</div>
+      <div class="card-body">
+        Human connection, creativity, ethics, emotional intelligence, critical thinking, 
+        leadership, adaptability। ये skills AI replace नहीं कर सकता।
+      </div>
     </div>
-    <div class="blog-grid">
-      <div class="blog-card reveal">
-        <div class="blog-img blog-img-1">
-          🧮
-          <div class="blog-cat">MATHS TIPS</div>
-        </div>
-        <div class="blog-body">
-          <div class="blog-date">📅 07 MARCH 2026</div>
-          <div class="blog-title">SSC CGL Maths: Top 10 Speed Tricks jo Exam mein Kaam Aate Hain</div>
-          <div class="blog-excerpt">N.K. Suman Sir ne share ki hain woh 10 tricks jo SSC CGL maths mein 20 minute bachati hain. Percentage, Profit-Loss, SI/CI ke liye...</div>
-          <a href="https://wa.me/917488664125?text=Blog%20article%20ke%20baare%20mein%20poochna%20tha" target="_blank" class="blog-read">Poora Padhein →</a>
-        </div>
+    <div class="card">
+      <span class="card-icon">❌</span>
+      <div class="card-title">जो खत्म होगा</div>
+      <div class="card-body">
+        Rote memorization, passive listening, one-size-fits-all curriculum, 
+        single exam systems, geography-based learning limits।
       </div>
-      <div class="blog-card reveal reveal-delay-1">
-        <div class="blog-img blog-img-2">
-          🏛️
-          <div class="blog-cat">BPSC UPDATE</div>
-        </div>
-        <div class="blog-body">
-          <div class="blog-date">📅 05 MARCH 2026</div>
-          <div class="blog-title">BPSC 71st Prelims 2026: Complete Strategy aur Syllabus Guide</div>
-          <div class="blog-excerpt">BPSC 71st ki taiyari kaise karein? Konse topics important hain? Kaunsi books padhen? Yahan hai poora answer...</div>
-          <a href="https://wa.me/917488664125?text=BPSC%20strategy%20ke%20baare%20mein%20poochna%20tha" target="_blank" class="blog-read">Poora Padhein →</a>
-        </div>
-      </div>
-      <div class="blog-card reveal reveal-delay-2">
-        <div class="blog-img blog-img-3">
-          🏦
-          <div class="blog-cat">SUCCESS STORY</div>
-        </div>
-        <div class="blog-body">
-          <div class="blog-date">📅 03 MARCH 2026</div>
-          <div class="blog-title">Rahul Kumar, Purnea: Bank PO Selected — "CSC Campus ne Zindagi Badal Di"</div>
-          <div class="blog-excerpt">Rahul Kumar ne sirf 6 mahine mein Bank PO crack ki. Woh batate hain kaise CSC Campus ki coaching ne unka confidence badhaya...</div>
-          <a href="https://wa.me/917488664125?text=Success%20story%20ke%20baare%20mein%20poochna%20tha" target="_blank" class="blog-read">Poora Padhein →</a>
-        </div>
-      </div>
-      <div class="blog-card reveal reveal-delay-3">
-        <div class="blog-img blog-img-4">
-          🚂
-          <div class="blog-cat">RAILWAY TIPS</div>
-        </div>
-        <div class="blog-body">
-          <div class="blog-date">📅 01 MARCH 2026</div>
-          <div class="blog-title">Railway RRB NTPC 2026: Reasoning Section Master Karne ka Formula</div>
-          <div class="blog-excerpt">Reasoning mein marks pakke karne ke liye kaun se topics se shuru karein? Yahan hai step-by-step preparation plan...</div>
-          <a href="https://wa.me/917488664125?text=Railway%20tips%20ke%20baare%20mein%20poochna%20tha" target="_blank" class="blog-read">Poora Padhein →</a>
-        </div>
+    </div>
+    <div class="card">
+      <span class="card-icon">🎯</span>
+      <div class="card-title">आज क्या करें?</div>
+      <div class="card-body">
+        AI tools सीखो, curiosity बनाए रखो, languages सीखो, build करो — 
+        consume मत सिर्फ। Learning को identity बना लो, degree को नहीं।
       </div>
     </div>
   </div>
-</section>
+</div>
 
-<!-- WHATSAPP CTA -->
-<section class="wa-section">
-  <div class="wa-icon">💬</div>
-  <div class="section-tag" style="display:inline-flex;background:rgba(0,200,80,0.12);border-color:rgba(0,200,80,0.3);color:#25D366;margin-bottom:16px;">📱 DIRECT CONTACT</div>
-  <div class="wa-title">WhatsApp Par Seedha Poochhen!</div>
-  <div class="wa-desc">Koi bhi sawal ho — admission fees, batch timing, syllabus, demo class —<br>WhatsApp par turant jawab milega. Bilkul free!</div>
-  <a href="https://wa.me/917488664125?text=Hello%20CSC%20Campus!%20Mujhe%20coaching%20ke%20baare%20mein%20jaankari%20chahiye.%20Please%20guide%20karein." target="_blank" class="wa-btn">
-    💬 WhatsApp: 7488664125
-  </a>
-  <div class="wa-note">⚡ Typically responds within 5 minutes • Mon-Sat 7AM-9PM</div>
-</section>
-
-<!-- TESTIMONIALS -->
-<section class="section testi-section">
-  <div class="section-inner">
-    <div class="section-header reveal">
-      <div class="section-tag">💬 STUDENT REVIEWS</div>
-      <div class="section-title">Hamare <span class="g">Students</span> Kya Kehte Hain</div>
-      <div class="gold-divider"></div>
-    </div>
-    <div class="testi-grid">
-      <div class="testi-card reveal">
-        <div class="testi-stars">★★★★★</div>
-        <div class="testi-text">"N.K. Suman Sir ka teaching style amazing hai. Maths jo pehle bahut mushkil lagti thi, woh ab easy ho gayi hai. CSC Campus ne mera confidence 100x badhaya. Bank PO clear ho gaya!"</div>
-        <div class="testi-author">
-          <div class="testi-avatar">👨</div>
-          <div>
-            <div class="testi-name">Amit Kumar</div>
-            <div class="testi-exam">✅ Bank PO Selected • Purnea</div>
-          </div>
-        </div>
-      </div>
-      <div class="testi-card reveal reveal-delay-1">
-        <div class="testi-stars">★★★★★</div>
-        <div class="testi-text">"BPSC ki taiyari ke liye CSC Campus best hai Purnea mein. Regular mock tests aur doubt sessions ne bahut help ki. Pehli attempt mein Prelims clear ho gayi!"</div>
-        <div class="testi-author">
-          <div class="testi-avatar" style="background:linear-gradient(135deg,#00CC66,#00AA44);">👩</div>
-          <div>
-            <div class="testi-name">Priya Singh</div>
-            <div class="testi-exam">✅ BPSC Prelims Qualified</div>
-          </div>
-        </div>
-      </div>
-      <div class="testi-card reveal reveal-delay-2">
-        <div class="testi-stars">★★★★★</div>
-        <div class="testi-text">"Railway Group D ki taiyari CSC Campus se ki. Sirf 4 mahine mein select ho gaya. Sir ke smart tricks ne bahut time bachaya exam mein. Highly recommended!"</div>
-        <div class="testi-author">
-          <div class="testi-avatar" style="background:linear-gradient(135deg,#AA44FF,#6600CC);">👨</div>
-          <div>
-            <div class="testi-name">Rohan Verma</div>
-            <div class="testi-exam">✅ Railway Group D Selected</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CONTACT -->
-<section class="section contact-section" id="contact">
-  <div class="section-inner">
-    <div class="section-header reveal">
-      <div class="section-tag">📍 FIND US</div>
-      <div class="section-title">Hamare <span class="g">Paas Aayein</span></div>
-      <div class="gold-divider"></div>
-    </div>
-    <div class="contact-grid">
-      <div class="contact-info">
-        <div class="contact-item reveal">
-          <div class="contact-icon">📍</div>
-          <div>
-            <div class="contact-label">ADDRESS</div>
-            <div class="contact-value" style="font-size:14px;line-height:1.5;">Near Ursuline School,<br>Rangbhumi Dhalai Road, Purnea</div>
-          </div>
-        </div>
-        <div class="contact-item reveal reveal-delay-1">
-          <div class="contact-icon">📞</div>
-          <div>
-            <div class="contact-label">PHONE / WHATSAPP</div>
-            <div class="contact-value"><a href="tel:7488664125" style="color:var(--gold);text-decoration:none;">7488664125</a></div>
-          </div>
-        </div>
-        <div class="contact-item reveal reveal-delay-2">
-          <div class="contact-icon">⏰</div>
-          <div>
-            <div class="contact-label">TIMING</div>
-            <div class="contact-value" style="font-size:14px;">Mon-Sat: 7:00 AM – 9:00 PM<br><span style="font-size:12px;color:rgba(255,255,255,0.5);">Sunday: Closed</span></div>
-          </div>
-        </div>
-        <div class="contact-item reveal reveal-delay-3">
-          <div class="contact-icon" style="background:rgba(37,211,102,0.2);border-color:rgba(37,211,102,0.4);">💬</div>
-          <div>
-            <div class="contact-label">WHATSAPP DIRECT</div>
-            <a href="https://wa.me/917488664125?text=Hello!%20Mujhe%20admission%20ke%20baare%20mein%20jaankari%20chahiye." target="_blank" class="btn-primary" style="display:inline-flex;margin-top:6px;padding:10px 20px;font-size:12px;">
-              💬 Chat Now
-            </a>
-          </div>
-        </div>
-      </div>
-      <div class="contact-map reveal reveal-delay-1">
-        <div class="map-pin-anim">📍</div>
-        <div style="text-align:center;">
-          <div style="font-size:16px;font-weight:700;color:var(--gold);margin-bottom:8px;">CSC Campus, Purnea</div>
-          <div style="font-size:13px;color:rgba(255,255,255,0.5);line-height:1.7;">Near Ursuline School<br>Rangbhumi Dhalai Road<br>Purnea, Bihar</div>
-          <a href="https://maps.google.com/?q=Ursuline+School+Rangbhumi+Dhalai+Road+Purnea+Bihar" target="_blank" class="btn-outline" style="display:inline-flex;margin-top:20px;font-size:12px;padding:10px 20px;">
-            🗺️ Google Maps Mein Dekhein
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- FOOTER -->
 <footer>
-  <div class="footer-grid">
-    <div>
-      <div class="footer-logo-area">
-        <div class="nav-logo" style="display:inline-flex;text-decoration:none;">
-          <div class="nav-logo-icon" style="width:40px;height:40px;">
-            <span style="font-size:13px;">CSC</span>
-            <span style="font-size:5px;">CAMPUS</span>
-          </div>
-          <div class="nav-brand" style="margin-left:10px;">
-            <div class="nav-name" style="font-size:22px;">CSC Campus</div>
-            <div class="nav-tagline">The Success Point • Purnea</div>
-          </div>
-        </div>
-      </div>
-      <div class="footer-desc">Bihar ke Purnea mein sabse trusted coaching center. SSC, Bank, Railway, BSSC, BPSC — sab ke liye expert coaching. जहाँ समझ बनती है, वहीं Selection होता है।</div>
-      <div class="footer-social">
-        <a href="https://wa.me/917488664125" target="_blank" class="social-btn">💬</a>
-        <a href="#" class="social-btn">📘</a>
-        <a href="#" class="social-btn">▶️</a>
-        <a href="#" class="social-btn">📸</a>
-      </div>
-    </div>
-    <div>
-      <div class="footer-head">Quick Links</div>
-      <div class="footer-links">
-        <a href="#home" class="footer-link">Home</a>
-        <a href="#notifications" class="footer-link">Notifications</a>
-        <a href="#courses" class="footer-link">Courses</a>
-        <a href="#blog" class="footer-link">Blog</a>
-        <a href="#contact" class="footer-link">Contact</a>
-      </div>
-    </div>
-    <div>
-      <div class="footer-head">Our Courses</div>
-      <div class="footer-links">
-        <a href="#courses" class="footer-link">SSC Coaching</a>
-        <a href="#courses" class="footer-link">Bank Coaching</a>
-        <a href="#courses" class="footer-link">Railway Coaching</a>
-        <a href="#courses" class="footer-link">BPSC Coaching</a>
-        <a href="#courses" class="footer-link">BSSC Coaching</a>
-        <a href="#courses" class="footer-link">Maths & Reasoning</a>
-      </div>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <div>© 2026 <span>CSC Campus Purnea</span>. All Rights Reserved.</div>
-    <div>Made with ❤️ for <span>Bihar's Future</span></div>
-  </div>
+  <h2>पढ़ना बंद नहीं होगा — बस बदल जाएगा।</h2>
+  <p style="margin-top:16px;">Future Education Deep Analysis · Claude AI · 2025</p>
 </footer>
 
 <script>
-// ===== CURSOR =====
-const cursor = document.getElementById('cursor');
-document.addEventListener('mousemove', e => {
-  cursor.style.transform = `translate(${e.clientX - 9}px, ${e.clientY - 9}px)`;
-});
+  // Intersection Observer for animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
 
-// ===== NAVBAR SCROLL =====
-const navbar = document.getElementById('navbar');
-const scrollTopBtn = document.getElementById('scrollTop');
-window.addEventListener('scroll', () => {
-  navbar.classList.toggle('scrolled', window.scrollY > 60);
-  scrollTopBtn.classList.toggle('visible', window.scrollY > 300);
-});
-
-// ===== MOBILE MENU =====
-function toggleMenu() {
-  document.getElementById('mobileMenu').classList.toggle('open');
-}
-
-// ===== SLIDER =====
-let currentSlide = 0;
-const totalSlides = 4;
-let autoSlide;
-const container = document.getElementById('slidesContainer');
-const slides = container.querySelectorAll('.slide');
-const dotsContainer = document.getElementById('sliderDots');
-const progressBar = document.getElementById('slideProgress');
-
-// Create dots
-for(let i = 0; i < totalSlides; i++) {
-  const dot = document.createElement('button');
-  dot.className = 'dot' + (i===0?' active':'');
-  dot.addEventListener('click', () => goToSlide(i));
-  dotsContainer.appendChild(dot);
-}
-
-function updateSlider() {
-  container.style.transform = `translateX(-${currentSlide * 100}%)`;
-  slides.forEach((s,i) => s.classList.toggle('active', i === currentSlide));
-  dotsContainer.querySelectorAll('.dot').forEach((d,i) => d.classList.toggle('active', i === currentSlide));
-  // Reset progress animation
-  progressBar.style.animation = 'none';
-  progressBar.offsetHeight;
-  progressBar.style.animation = 'progressBar 5s linear infinite';
-}
-
-function nextSlide() {
-  currentSlide = (currentSlide + 1) % totalSlides;
-  updateSlider();
-  resetAuto();
-}
-function prevSlide() {
-  currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
-  updateSlider();
-  resetAuto();
-}
-function goToSlide(n) {
-  currentSlide = n;
-  updateSlider();
-  resetAuto();
-}
-function resetAuto() {
-  clearInterval(autoSlide);
-  autoSlide = setInterval(nextSlide, 5000);
-}
-autoSlide = setInterval(nextSlide, 5000);
-
-// Touch swipe
-let touchStartX = 0;
-container.addEventListener('touchstart', e => touchStartX = e.touches[0].clientX, {passive:true});
-container.addEventListener('touchend', e => {
-  const diff = touchStartX - e.changedTouches[0].clientX;
-  if(Math.abs(diff) > 50) diff > 0 ? nextSlide() : prevSlide();
-}, {passive:true});
-
-// ===== STATS COUNTER =====
-function animateCounter(el, target) {
-  let start = 0;
-  const duration = 2000;
-  const step = target / (duration / 16);
-  const timer = setInterval(() => {
-    start = Math.min(start + step, target);
-    el.textContent = Math.floor(start) + (target >= 100 ? '%' : target >= 1000 ? '+' : '');
-    if(start >= target) {
-      el.textContent = target + (target >= 100 ? '%' : target >= 1000 ? '+' : '');
-      clearInterval(timer);
-    }
-  }, 16);
-}
-
-// ===== REVEAL ON SCROLL =====
-const reveals = document.querySelectorAll('.reveal');
-const counters = document.querySelectorAll('.stat-num[data-count]');
-let countersStarted = false;
-
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if(e.isIntersecting) {
-      e.target.classList.add('visible');
-      observer.unobserve(e.target);
-    }
+  document.querySelectorAll('.fade-in-section, .timeline-item').forEach(el => {
+    observer.observe(el);
   });
-}, {threshold: 0.12});
-
-reveals.forEach(r => observer.observe(r));
-
-const counterObserver = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if(e.isIntersecting && !countersStarted) {
-      countersStarted = true;
-      counters.forEach(c => animateCounter(c, parseInt(c.dataset.count)));
-    }
-  });
-}, {threshold: 0.5});
-
-if(counters.length) counterObserver.observe(counters[0]);
-
-// ===== SMOOTH ANCHOR SCROLL =====
-document.querySelectorAll('a[href^="#"]').forEach(a => {
-  a.addEventListener('click', e => {
-    const target = document.querySelector(a.getAttribute('href'));
-    if(target) {
-      e.preventDefault();
-      target.scrollIntoView({behavior:'smooth', block:'start'});
-    }
-  });
-});
 </script>
 </body>
 </html>
