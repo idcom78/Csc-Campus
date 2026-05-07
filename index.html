@@ -2,832 +2,2077 @@
 <html lang="hi">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>भविष्य की शिक्षा — Deep Analysis</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=JetBrains+Mono:wght@300;500&family=Noto+Sans+Devanagari:wght@300;400;700&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="theme-color" content="#1a3a5c">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<title>CSC Campus — Competitive Exam Preparation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&family=Noto+Sans+Devanagari:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
+/* ===== CSS VARIABLES ===== */
+:root {
+  --primary: #1a3a5c;
+  --primary-light: #2a5a8c;
+  --accent: #e8871a;
+  --accent-light: #f5a84a;
+  --success: #2a7a4a;
+  --bg: #f8f5ef;
+  --bg-card: #ffffff;
+  --bg-sidebar: #0f2a45;
+  --text-primary: #1a1a2e;
+  --text-secondary: #4a5568;
+  --text-muted: #8a9bb0;
+  --border: #e2ddd5;
+  --shadow: 0 2px 20px rgba(26,58,92,0.10);
+  --shadow-lg: 0 8px 40px rgba(26,58,92,0.16);
+  --radius: 12px;
+  --radius-sm: 8px;
+  --font-body: 'DM Sans', 'Noto Sans Devanagari', sans-serif;
+  --font-display: 'Crimson Pro', 'Noto Sans Devanagari', serif;
+  --sidebar-w: 280px;
+  --header-h: 64px;
+  --transition: 0.25s cubic-bezier(0.4,0,0.2,1);
+}
+
+/* ===== RESET ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #c8bfb0; border-radius: 99px; }
+
+/* ===== LAYOUT ===== */
+.app-layout {
+  display: flex;
+  min-height: 100vh;
+  position: relative;
+}
+
+/* ===== SIDEBAR ===== */
+.sidebar {
+  width: var(--sidebar-w);
+  background: var(--bg-sidebar);
+  color: #fff;
+  position: fixed;
+  top: 0; left: 0; bottom: 0;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  transition: transform var(--transition), width var(--transition);
+  overflow: hidden;
+}
+
+.sidebar-logo {
+  padding: 20px 20px 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  flex-shrink: 0;
+}
+
+.logo-mark {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo-icon {
+  width: 42px; height: 42px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-light));
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
+  font-weight: 700;
+  color: white;
+  font-family: var(--font-display);
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(232,135,26,0.4);
+}
+
+.logo-text h1 {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.2;
+}
+
+.logo-text p {
+  font-size: 10px;
+  color: rgba(255,255,255,0.5);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+
+/* Sidebar Search */
+.sidebar-search-wrap {
+  padding: 14px 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  flex-shrink: 0;
+}
+
+.sidebar-search {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 8px;
+  padding: 8px 12px;
+  color: #fff;
+  font-size: 13px;
+  width: 100%;
+  outline: none;
+  font-family: var(--font-body);
+  transition: all var(--transition);
+}
+
+.sidebar-search::placeholder { color: rgba(255,255,255,0.35); }
+.sidebar-search:focus {
+  background: rgba(255,255,255,0.14);
+  border-color: var(--accent);
+}
+
+/* Sidebar Nav */
+.sidebar-nav {
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px 0 20px;
+}
+
+.nav-section-label {
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.3);
+  padding: 14px 20px 6px;
+}
+
+.nav-item {
+  position: relative;
+  cursor: pointer;
+}
+
+.nav-item-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 20px;
+  border-radius: 0;
+  transition: background var(--transition);
+  color: rgba(255,255,255,0.75);
+  font-size: 13.5px;
+  font-weight: 400;
+}
+
+.nav-item-header:hover { background: rgba(255,255,255,0.07); color: #fff; }
+.nav-item.active > .nav-item-header {
+  background: rgba(232,135,26,0.18);
+  color: var(--accent-light);
+  border-right: 3px solid var(--accent);
+}
+
+.nav-icon { font-size: 16px; width: 20px; text-align: center; flex-shrink: 0; }
+.nav-label { flex: 1; font-family: var(--font-body); }
+.nav-arrow {
+  font-size: 10px;
+  transition: transform var(--transition);
+  color: rgba(255,255,255,0.3);
+}
+.nav-item.open > .nav-item-header .nav-arrow { transform: rotate(90deg); }
+
+.nav-sub {
+  display: none;
+  padding: 2px 0;
+  background: rgba(0,0,0,0.15);
+}
+.nav-item.open > .nav-sub { display: block; }
+
+.nav-sub-item {
+  padding: 7px 20px 7px 50px;
+  font-size: 12.5px;
+  color: rgba(255,255,255,0.55);
+  cursor: pointer;
+  transition: all var(--transition);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.nav-sub-item:hover { color: #fff; background: rgba(255,255,255,0.05); }
+.nav-sub-item.active { color: var(--accent-light); font-weight: 500; }
+
+.nav-sub-item .sub-dot {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.5;
+  flex-shrink: 0;
+}
+
+.nav-badge {
+  background: var(--accent);
+  color: white;
+  font-size: 9px;
+  padding: 1px 6px;
+  border-radius: 20px;
+  font-weight: 600;
+  margin-left: auto;
+}
+
+/* ===== MAIN CONTENT ===== */
+.main-content {
+  margin-left: var(--sidebar-w);
+  flex: 1;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  transition: margin-left var(--transition);
+}
+
+/* ===== TOPBAR ===== */
+.topbar {
+  height: var(--header-h);
+  background: rgba(248,245,239,0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+  gap: 16px;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  box-shadow: 0 1px 12px rgba(0,0,0,0.06);
+}
+
+.menu-btn {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 8px;
+  color: var(--text-primary);
+  font-size: 20px;
+  transition: background var(--transition);
+}
+.menu-btn:hover { background: var(--border); }
+
+/* SUPER SEARCH BAR */
+.search-container {
+  flex: 1;
+  max-width: 560px;
+  position: relative;
+}
+
+.search-input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  position: absolute;
+  left: 14px;
+  font-size: 16px;
+  color: var(--text-muted);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.search-input {
+  width: 100%;
+  padding: 10px 44px 10px 42px;
+  background: var(--bg-card);
+  border: 2px solid var(--border);
+  border-radius: 50px;
+  font-size: 14px;
+  font-family: var(--font-body);
+  color: var(--text-primary);
+  outline: none;
+  transition: all var(--transition);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+.search-input:focus {
+  border-color: var(--primary-light);
+  box-shadow: 0 0 0 3px rgba(42,90,140,0.12), 0 2px 8px rgba(0,0,0,0.04);
+}
+
+.search-input::placeholder { color: var(--text-muted); }
+
+.search-clear {
+  position: absolute;
+  right: 12px;
+  background: var(--border);
+  border: none;
+  border-radius: 50%;
+  width: 20px; height: 20px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 12px;
+  color: var(--text-secondary);
+  transition: all var(--transition);
+}
+.search-clear.show { display: flex; }
+.search-clear:hover { background: var(--accent); color: #fff; }
+
+/* Search Dropdown */
+.search-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0; right: 0;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+  z-index: 200;
+  max-height: 380px;
+  overflow-y: auto;
+  display: none;
+}
+
+.search-dropdown.show { display: block; }
+
+.search-result-item {
+  padding: 12px 16px;
+  cursor: pointer;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  transition: background var(--transition);
+}
+
+.search-result-item:last-child { border-bottom: none; }
+.search-result-item:hover { background: var(--bg); }
+
+.result-icon { font-size: 18px; margin-top: 2px; }
+
+.result-info { flex: 1; }
+.result-title { font-size: 14px; font-weight: 500; color: var(--text-primary); }
+.result-meta { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+.result-tag {
+  font-size: 10px;
+  padding: 2px 8px;
+  background: var(--primary);
+  color: #fff;
+  border-radius: 20px;
+  font-weight: 500;
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+
+.search-no-result {
+  padding: 30px;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+/* Filter Chips */
+.filter-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 2px;
+  flex-shrink: 0;
+  scrollbar-width: none;
+}
+.filter-bar::-webkit-scrollbar { display: none; }
+
+.filter-chip {
+  padding: 5px 14px;
+  border: 1.5px solid var(--border);
+  border-radius: 50px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all var(--transition);
+  background: var(--bg-card);
+  color: var(--text-secondary);
+}
+
+.filter-chip:hover { border-color: var(--primary-light); color: var(--primary); }
+.filter-chip.active {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+}
+
+/* Topbar Right */
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.update-badge {
+  background: linear-gradient(135deg, var(--accent), var(--accent-light));
+  color: white;
+  font-size: 11px;
+  padding: 5px 12px;
+  border-radius: 50px;
+  font-weight: 600;
+  white-space: nowrap;
+  animation: pulse-badge 2s infinite;
+}
+
+@keyframes pulse-badge {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(232,135,26,0.4); }
+  50% { box-shadow: 0 0 0 6px rgba(232,135,26,0); }
+}
+
+/* ===== CONTENT AREA ===== */
+.content-area {
+  flex: 1;
+  padding: 28px 32px;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* ===== HOME PAGE ===== */
+.home-hero {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 60%, #3a6fa0 100%);
+  border-radius: 20px;
+  padding: 40px;
+  color: white;
+  margin-bottom: 28px;
+  position: relative;
+  overflow: hidden;
+}
+
+.home-hero::before {
+  content: '';
+  position: absolute;
+  right: -60px; top: -60px;
+  width: 280px; height: 280px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 50%;
+}
+
+.home-hero::after {
+  content: '';
+  position: absolute;
+  right: 60px; bottom: -40px;
+  width: 180px; height: 180px;
+  background: rgba(232,135,26,0.12);
+  border-radius: 50%;
+}
+
+.hero-content { position: relative; z-index: 1; }
+
+.hero-eyebrow {
+  font-size: 11px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--accent-light);
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 12px;
+}
+
+.hero-sub {
+  font-size: 14px;
+  color: rgba(255,255,255,0.75);
+  max-width: 560px;
+  line-height: 1.7;
+  font-family: 'Noto Sans Devanagari', sans-serif;
+}
+
+.hero-stats {
+  display: flex;
+  gap: 28px;
+  margin-top: 24px;
+  flex-wrap: wrap;
+}
+
+.hero-stat { text-align: left; }
+.hero-stat .num {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1;
+}
+.hero-stat .lbl { font-size: 11px; color: rgba(255,255,255,0.55); margin-top: 2px; }
+
+/* Quick Access Grid */
+.section-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.section-heading {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.see-all {
+  font-size: 13px;
+  color: var(--primary-light);
+  cursor: pointer;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color var(--transition);
+}
+.see-all:hover { color: var(--accent); }
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 14px;
+  margin-bottom: 32px;
+}
+
+.subject-card {
+  background: var(--bg-card);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 16px;
+  cursor: pointer;
+  transition: all var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.subject-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--card-color, var(--primary));
+  border-radius: 0;
+}
+
+.subject-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--card-color, var(--primary));
+}
+
+.card-icon { font-size: 28px; margin-bottom: 10px; }
+.card-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+  font-family: 'Noto Sans Devanagari', sans-serif;
+}
+.card-meta { font-size: 11px; color: var(--text-muted); }
+
+/* Exam Boards */
+.exam-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 14px;
+  margin-bottom: 32px;
+}
+
+.exam-card {
+  background: var(--bg-card);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  cursor: pointer;
+  transition: all var(--transition);
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.exam-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+  border-color: var(--primary-light);
+}
+
+.exam-card-icon {
+  width: 44px; height: 44px;
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px;
+  flex-shrink: 0;
+}
+
+.exam-card-info h3 {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.exam-card-info p {
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+.exam-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 8px;
+}
+
+.exam-tag {
+  font-size: 10px;
+  padding: 2px 8px;
+  border-radius: 20px;
+  background: var(--bg);
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+}
+
+/* Latest Updates */
+.update-list { margin-bottom: 32px; }
+
+.update-item {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 14px 18px;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  cursor: pointer;
+  transition: all var(--transition);
+  position: relative;
+}
+
+.update-item:hover { box-shadow: var(--shadow); transform: translateX(4px); }
+
+.update-item.new::after {
+  content: 'NEW';
+  position: absolute;
+  right: 14px; top: 50%;
+  transform: translateY(-50%);
+  font-size: 9px;
+  font-weight: 700;
+  background: var(--accent);
+  color: white;
+  padding: 2px 7px;
+  border-radius: 20px;
+  letter-spacing: 1px;
+}
+
+.update-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  margin-top: 6px;
+  flex-shrink: 0;
+}
+
+.update-content { flex: 1; padding-right: 40px; }
+.update-title { font-size: 14px; font-weight: 500; color: var(--text-primary); margin-bottom: 3px; }
+.update-meta { font-size: 11px; color: var(--text-muted); display: flex; gap: 10px; align-items: center; }
+.update-time { font-size: 11px; color: var(--text-muted); }
+
+/* ===== CONTENT READER ===== */
+.reader-view {
+  display: none;
+  max-width: 780px;
+  margin: 0 auto;
+}
+
+.reader-view.active { display: block; }
+
+.reader-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.breadcrumb-item {
+  cursor: pointer;
+  transition: color var(--transition);
+}
+.breadcrumb-item:hover { color: var(--primary); }
+.breadcrumb-sep { color: var(--border); }
+.breadcrumb-item.current { color: var(--text-primary); font-weight: 500; cursor: default; }
+
+/* Paper-like reader */
+.reader-paper {
+  background: #fffef9;
+  border: 1px solid #e8e0d0;
+  border-radius: 16px;
+  padding: 52px 60px;
+  box-shadow: 0 4px 30px rgba(0,0,0,0.06), 0 0 0 1px rgba(0,0,0,0.02);
+  position: relative;
+  font-family: var(--font-display);
+}
+
+.reader-paper::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: linear-gradient(180deg, var(--accent) 0%, var(--primary) 100%);
+  border-radius: 16px 0 0 16px;
+}
+
+/* Margin line like physical book */
+.reader-paper::after {
+  content: '';
+  position: absolute;
+  left: 88px; top: 0; bottom: 0;
+  width: 1px;
+  background: rgba(232,135,26,0.15);
+}
+
+.reader-subject-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--primary);
+  color: #fff;
+  font-size: 11px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-family: var(--font-body);
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  margin-bottom: 16px;
+}
+
+.reader-title {
+  font-family: var(--font-display);
+  font-size: clamp(26px, 4vw, 36px);
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.25;
+  margin-bottom: 10px;
+}
+
+.reader-meta {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: 28px;
+  padding-bottom: 20px;
+  border-bottom: 1px dashed #ddd;
+  font-family: var(--font-body);
+  flex-wrap: wrap;
+}
+
+.reader-meta span {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* Reading typography — eye-friendly */
+.reader-body {
+  font-size: 17px;
+  line-height: 1.9;
+  color: #2a2520;
+  font-weight: 400;
+  font-family: var(--font-display);
+}
+
+.reader-body h2 {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--primary);
+  margin: 32px 0 14px;
+  padding-left: 20px;
+  border-left: 4px solid var(--accent);
+  font-family: var(--font-display);
+}
+
+.reader-body h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 24px 0 10px;
+  font-family: var(--font-display);
+}
+
+.reader-body p {
+  margin-bottom: 16px;
+  font-family: 'Noto Sans Devanagari', serif;
+  font-size: 16px;
+  line-height: 1.9;
+}
+
+.reader-body ul, .reader-body ol {
+  padding-left: 26px;
+  margin: 14px 0;
+}
+
+.reader-body li {
+  margin-bottom: 8px;
+  font-family: 'Noto Sans Devanagari', sans-serif;
+  font-size: 15.5px;
+  line-height: 1.75;
+}
+
+.reader-body .highlight-box {
+  background: linear-gradient(135deg, #fff8ed, #fff3e0);
+  border: 1px solid #f5d280;
+  border-left: 4px solid var(--accent);
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin: 20px 0;
+  font-family: 'Noto Sans Devanagari', sans-serif;
+  font-size: 15px;
+  color: #6b4500;
+}
+
+.reader-body .formula-box {
+  background: #f0f4ff;
+  border: 1px solid #c0cfe8;
+  border-radius: 8px;
+  padding: 18px 24px;
+  margin: 20px 0;
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
+  font-size: 16px;
+  color: var(--primary);
+  text-align: center;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.reader-body .example-box {
+  background: #f5fff8;
+  border: 1px solid #b0e0c0;
+  border-left: 4px solid var(--success);
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin: 20px 0;
+}
+
+.reader-body .example-box strong {
+  display: block;
+  color: var(--success);
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  font-family: var(--font-body);
+}
+
+/* Reading progress */
+.reading-progress {
+  position: fixed;
+  top: 0; left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-light));
+  z-index: 999;
+  transition: width 0.1s;
+  width: 0%;
+}
+
+/* Font controls */
+.reader-controls {
+  position: sticky;
+  top: calc(var(--header-h) + 12px);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 50px;
+  padding: 6px 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: var(--shadow);
+  margin-bottom: 20px;
+  width: fit-content;
+  z-index: 10;
+  flex-wrap: wrap;
+}
+
+.rc-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px 10px;
+  border-radius: 20px;
+  font-size: 13px;
+  color: var(--text-secondary);
+  transition: all var(--transition);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.rc-btn:hover { background: var(--bg); color: var(--primary); }
+.rc-btn.active { background: var(--primary); color: #fff; }
+
+.rc-divider { width: 1px; height: 20px; background: var(--border); }
+
+/* ===== TOPIC LIST VIEW ===== */
+.topic-list-view { display: none; }
+.topic-list-view.active { display: block; }
+
+.topic-list-header {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px 28px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.topic-header-icon {
+  width: 52px; height: 52px;
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 26px;
+  flex-shrink: 0;
+}
+
+.topic-header-info h2 {
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+
+.topic-header-info p {
+  font-size: 14px;
+  color: var(--text-muted);
+  font-family: 'Noto Sans Devanagari', sans-serif;
+}
+
+.topic-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 14px;
+}
+
+.topic-card {
+  background: var(--bg-card);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 18px 20px;
+  cursor: pointer;
+  transition: all var(--transition);
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.topic-card:hover {
+  border-color: var(--primary-light);
+  box-shadow: var(--shadow);
+  transform: translateY(-2px);
+}
+
+.topic-card-num {
+  width: 32px; height: 32px;
+  background: var(--primary);
+  color: #fff;
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.topic-card-info { flex: 1; }
+.topic-card-title { font-size: 14px; font-weight: 600; margin-bottom: 4px; color: var(--text-primary); }
+.topic-card-sub { font-size: 12px; color: var(--text-muted); }
+.topic-card-arrow { color: var(--text-muted); font-size: 14px; margin-top: 2px; }
+
+/* Time stamp */
+.timestamp {
+  font-size: 11px;
+  color: var(--text-muted);
+  background: var(--bg);
+  padding: 2px 8px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+}
+
+/* ===== MOBILE OVERLAY ===== */
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 99;
+  backdrop-filter: blur(2px);
+}
+
+/* ===== RESPONSIVE / MOBILE ===== */
+@media (max-width: 768px) {
   :root {
-    --ink: #0a0a0f;
-    --paper: #f5f0e8;
-    --accent: #c8390a;
-    --gold: #d4a017;
-    --muted: #6b6560;
-    --light-line: #e0d9cd;
+    --sidebar-w: 0px;
   }
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  body {
-    background: var(--paper);
-    color: var(--ink);
-    font-family: 'JetBrains Mono', monospace;
-    overflow-x: hidden;
+  .sidebar {
+    transform: translateX(-280px);
+    width: 280px !important;
+    z-index: 200;
   }
 
-  /* HERO */
-  .hero {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 60px 40px;
-    position: relative;
-    border-bottom: 3px solid var(--ink);
-    background: 
-      repeating-linear-gradient(
-        0deg,
-        transparent,
-        transparent 39px,
-        var(--light-line) 39px,
-        var(--light-line) 40px
-      );
-  }
-
-  .hero::before {
-    content: '';
-    position: absolute;
-    left: 80px;
-    top: 0; bottom: 0;
-    width: 2px;
-    background: #e8a0a0;
-    opacity: 0.6;
-  }
-
-  .year-tag {
-    font-family: 'JetBrains Mono';
-    font-size: 11px;
-    letter-spacing: 4px;
-    color: var(--accent);
-    text-transform: uppercase;
-    margin-bottom: 24px;
-    padding-left: 100px;
-    animation: fadeIn 0.8s ease;
-  }
-
-  .hero-title {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(42px, 8vw, 96px);
-    font-weight: 700;
-    line-height: 1.0;
-    padding-left: 100px;
-    animation: slideUp 1s ease;
-  }
-
-  .hero-title .accent-word {
-    color: var(--accent);
-    font-style: italic;
-  }
-
-  .hero-subtitle {
-    font-family: 'Noto Sans Devanagari', sans-serif;
-    font-size: 16px;
-    color: var(--muted);
-    margin-top: 28px;
-    padding-left: 100px;
-    max-width: 600px;
-    line-height: 1.8;
-    font-weight: 300;
-    animation: fadeIn 1.2s ease;
-  }
-
-  .scroll-hint {
-    position: absolute;
-    bottom: 30px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 10px;
-    letter-spacing: 3px;
-    color: var(--muted);
-    animation: bounce 2s infinite;
-  }
-
-  /* SECTIONS */
-  .section {
-    padding: 80px 40px;
-    border-bottom: 1px solid var(--light-line);
-    max-width: 900px;
-    margin: 0 auto;
-  }
-
-  .section-number {
-    font-size: 10px;
-    letter-spacing: 4px;
-    color: var(--accent);
-    text-transform: uppercase;
-    margin-bottom: 12px;
-  }
-
-  .section-title {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(28px, 4vw, 48px);
-    font-weight: 700;
-    line-height: 1.2;
-    margin-bottom: 40px;
-    border-left: 4px solid var(--accent);
-    padding-left: 20px;
-  }
-
-  /* CARDS */
-  .cards-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 2px;
-    margin: 30px 0;
-    border: 2px solid var(--ink);
-  }
-
-  .card {
-    background: var(--paper);
-    padding: 28px 24px;
-    border-right: 2px solid var(--ink);
-    border-bottom: 2px solid var(--ink);
-    transition: background 0.2s;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .card:hover { background: var(--ink); color: var(--paper); }
-  .card:hover .card-icon { filter: invert(1); }
-  .card:hover .card-label { color: #aaa; }
-
-  .card-icon { font-size: 32px; margin-bottom: 14px; display: block; }
-  
-  .card-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 18px;
-    font-weight: 700;
-    margin-bottom: 10px;
-  }
-
-  .card-label {
-    font-size: 10px;
-    letter-spacing: 2px;
-    color: var(--muted);
-    text-transform: uppercase;
-    margin-bottom: 8px;
-  }
-
-  .card-body {
-    font-family: 'Noto Sans Devanagari', sans-serif;
-    font-size: 13px;
-    line-height: 1.7;
-    font-weight: 300;
-  }
-
-  /* TIMELINE */
-  .timeline {
-    position: relative;
-    padding-left: 40px;
-    margin: 30px 0;
-  }
-
-  .timeline::before {
-    content: '';
-    position: absolute;
-    left: 8px;
-    top: 0; bottom: 0;
-    width: 2px;
-    background: var(--ink);
-  }
-
-  .timeline-item {
-    position: relative;
-    margin-bottom: 40px;
-    opacity: 0;
-    transform: translateX(-20px);
-    transition: all 0.5s ease;
-  }
-
-  .timeline-item.visible {
-    opacity: 1;
+  .sidebar.open {
     transform: translateX(0);
   }
 
-  .timeline-dot {
-    position: absolute;
-    left: -36px;
-    top: 4px;
-    width: 12px;
-    height: 12px;
-    background: var(--accent);
-    border: 2px solid var(--ink);
-  }
+  .sidebar-overlay.show { display: block; }
 
-  .timeline-year {
-    font-size: 10px;
-    letter-spacing: 3px;
-    color: var(--accent);
-    margin-bottom: 6px;
-  }
+  .main-content { margin-left: 0; }
 
-  .timeline-heading {
-    font-family: 'Playfair Display', serif;
-    font-size: 22px;
-    font-weight: 700;
-    margin-bottom: 10px;
-  }
+  .menu-btn { display: flex; }
 
-  .timeline-text {
-    font-family: 'Noto Sans Devanagari', sans-serif;
-    font-size: 14px;
-    line-height: 1.8;
-    color: #333;
-    font-weight: 300;
-  }
+  .topbar { padding: 0 14px; gap: 10px; }
 
-  /* PULL QUOTE */
-  .pull-quote {
-    border-top: 3px solid var(--ink);
-    border-bottom: 3px solid var(--ink);
-    padding: 40px 0;
-    margin: 50px 0;
-    text-align: center;
-  }
+  .content-area { padding: 16px 14px; }
 
-  .pull-quote p {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(22px, 3vw, 36px);
-    font-style: italic;
-    line-height: 1.4;
-    max-width: 700px;
-    margin: 0 auto;
-  }
+  .home-hero { padding: 24px 20px; }
+  .hero-title { font-size: 24px; }
+  .hero-stats { gap: 16px; }
 
-  .pull-quote cite {
-    display: block;
-    font-family: 'JetBrains Mono';
-    font-size: 11px;
-    letter-spacing: 3px;
-    color: var(--muted);
-    margin-top: 20px;
-    font-style: normal;
-  }
+  .cards-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .exam-grid { grid-template-columns: 1fr; }
 
-  /* STATS */
-  .stats-row {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    gap: 0;
-    border: 2px solid var(--ink);
-    margin: 30px 0;
-  }
-
-  .stat-box {
+  .reader-paper {
     padding: 30px 20px;
-    border-right: 2px solid var(--ink);
-    text-align: center;
   }
 
-  .stat-box:last-child { border-right: none; }
+  .reader-paper::after { display: none; }
 
-  .stat-num {
-    font-family: 'Playfair Display', serif;
-    font-size: 42px;
-    font-weight: 700;
-    color: var(--accent);
-    display: block;
-  }
+  .filter-bar { gap: 6px; }
+  .filter-chip { font-size: 11px; padding: 4px 10px; }
 
-  .stat-label {
-    font-family: 'Noto Sans Devanagari', sans-serif;
-    font-size: 12px;
-    color: var(--muted);
-    margin-top: 6px;
-    font-weight: 400;
-  }
+  .topbar-right .update-badge { display: none; }
 
-  /* COMPARISON TABLE */
-  .compare-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 30px 0;
-    font-size: 13px;
-  }
+  .search-container { max-width: none; flex: 1; }
+}
 
-  .compare-table th {
-    background: var(--ink);
-    color: var(--paper);
-    padding: 14px 16px;
-    text-align: left;
-    font-family: 'JetBrains Mono';
-    font-size: 10px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-  }
+/* ===== DARK MODE ===== */
+body.dark-mode {
+  --bg: #0f1b2a;
+  --bg-card: #162233;
+  --bg-sidebar: #0a1520;
+  --text-primary: #eef2f7;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --border: #1e3448;
+  --shadow: 0 2px 20px rgba(0,0,0,0.3);
+  --shadow-lg: 0 8px 40px rgba(0,0,0,0.4);
+}
 
-  .compare-table td {
-    padding: 14px 16px;
-    border-bottom: 1px solid var(--light-line);
-    font-family: 'Noto Sans Devanagari', sans-serif;
-    font-weight: 300;
-    line-height: 1.6;
-  }
+body.dark-mode .reader-paper {
+  background: #1a2840;
+  border-color: #1e3448;
+  color: #dde6f0;
+}
 
-  .compare-table tr:hover td { background: #ede8df; }
+body.dark-mode .reader-body { color: #c8d8e8; }
 
-  .old { color: var(--muted); text-decoration: line-through; font-size: 12px; }
-  .new { color: #1a6b3a; font-weight: 400; }
+body.dark-mode .topbar {
+  background: rgba(15,27,42,0.95);
+}
 
-  /* DANGER ZONE */
-  .danger-box {
-    background: #1a0a0a;
-    color: #f5f0e8;
-    padding: 40px;
-    margin: 40px 0;
-    border-left: 6px solid var(--accent);
-  }
+body.dark-mode .search-input {
+  background: var(--bg-card);
+  color: var(--text-primary);
+  border-color: var(--border);
+}
 
-  .danger-box h3 {
-    font-family: 'Playfair Display', serif;
-    font-size: 24px;
-    margin-bottom: 16px;
-    color: #ff6b4a;
-  }
+/* ===== ANIMATIONS ===== */
+@keyframes slideInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 
-  .danger-box p {
-    font-family: 'Noto Sans Devanagari', sans-serif;
-    font-size: 14px;
-    line-height: 1.9;
-    font-weight: 300;
-    color: #ccc;
-  }
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
 
-  /* FOOTER */
-  footer {
-    background: var(--ink);
-    color: var(--paper);
-    padding: 60px 40px;
-    text-align: center;
-  }
+.animate-in {
+  animation: slideInUp 0.4s ease forwards;
+}
 
-  footer h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: 36px;
-    font-style: italic;
-    margin-bottom: 16px;
-  }
+/* Stagger children */
+.cards-grid > *:nth-child(1) { animation-delay: 0.05s; }
+.cards-grid > *:nth-child(2) { animation-delay: 0.10s; }
+.cards-grid > *:nth-child(3) { animation-delay: 0.15s; }
+.cards-grid > *:nth-child(4) { animation-delay: 0.20s; }
+.cards-grid > *:nth-child(5) { animation-delay: 0.25s; }
+.cards-grid > *:nth-child(6) { animation-delay: 0.30s; }
+.cards-grid > *:nth-child(7) { animation-delay: 0.35s; }
+.cards-grid > *:nth-child(8) { animation-delay: 0.40s; }
 
-  footer p {
-    font-family: 'Noto Sans Devanagari', sans-serif;
-    font-size: 13px;
-    color: #888;
-    font-weight: 300;
-  }
+/* Loading state */
+.skeleton {
+  background: linear-gradient(90deg, var(--border) 25%, var(--bg) 50%, var(--border) 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite;
+  border-radius: 6px;
+}
 
-  /* ANIMATIONS */
-  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-  @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-  @keyframes bounce {
-    0%, 100% { transform: translateX(-50%) translateY(0); }
-    50% { transform: translateX(-50%) translateY(-8px); }
-  }
+@keyframes skeleton-loading {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
 
-  .fade-in-section {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
-  }
-  .fade-in-section.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
+/* Font size classes */
+.fs-sm .reader-body { font-size: 15px; }
+.fs-md .reader-body { font-size: 17px; }
+.fs-lg .reader-body { font-size: 19px; }
+.fs-xl .reader-body { font-size: 21px; }
 
-  /* BIG TEXT DIVIDER */
-  .big-divider {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(60px, 12vw, 140px);
-    font-weight: 700;
-    color: var(--light-line);
-    text-align: center;
-    line-height: 1;
-    padding: 20px;
-    overflow: hidden;
-    user-select: none;
-  }
-
-  .tag-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin: 20px 0;
-  }
-
-  .tag {
-    border: 1px solid var(--ink);
-    padding: 5px 14px;
-    font-size: 11px;
-    letter-spacing: 1px;
-    font-family: 'JetBrains Mono';
-    cursor: default;
-    transition: all 0.2s;
-  }
-
-  .tag:hover { background: var(--ink); color: var(--paper); }
-
-  @media (max-width: 600px) {
-    .hero { padding: 40px 20px; }
-    .hero-title, .year-tag, .hero-subtitle { padding-left: 60px; }
-    .hero::before { left: 44px; }
-    .section { padding: 60px 20px; }
-    .stat-num { font-size: 30px; }
-  }
+/* Sepia mode */
+body.sepia-mode .reader-paper { background: #faf3e0; }
+body.sepia-mode .reader-body { color: #5a4020; }
 </style>
 </head>
 <body>
 
-<!-- HERO -->
-<div class="hero">
-  <div class="year-tag">◆ Deep Analysis · 2025 — 2075</div>
-  <h1 class="hero-title">
-    भविष्य की<br>
-    <span class="accent-word">शिक्षा</span>
-  </h1>
-  <p class="hero-subtitle">
-    आने वाले 50 सालों में education कैसे बदलेगी — कहाँ पढ़ेंगे, कैसे पढ़ेंगे, 
-    क्या पढ़ेंगे, और कौन पढ़ाएगा। एक honest, data-driven analysis।
-  </p>
-  <div class="scroll-hint">↓ SCROLL ↓</div>
+<!-- Reading Progress Bar -->
+<div class="reading-progress" id="readingProgress"></div>
+
+<!-- Sidebar Overlay -->
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+<div class="app-layout">
+
+<!-- ===== SIDEBAR ===== -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">
+      <div class="logo-icon">C</div>
+      <div class="logo-text">
+        <h1>CSC Campus</h1>
+        <p>Competitive Prep</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sidebar-search-wrap">
+    <input class="sidebar-search" type="text" placeholder="🔍 Subject खोजें..." id="sidebarSearch" oninput="filterSidebar(this.value)">
+  </div>
+
+  <nav class="sidebar-nav" id="sidebarNav">
+
+    <div class="nav-section-label">Home</div>
+    <div class="nav-item active" onclick="showHome()">
+      <div class="nav-item-header">
+        <span class="nav-icon">🏠</span>
+        <span class="nav-label">Dashboard</span>
+      </div>
+    </div>
+
+    <div class="nav-section-label">Core Subjects</div>
+
+    <div class="nav-item" id="nav-maths">
+      <div class="nav-item-header" onclick="toggleNav('nav-maths')">
+        <span class="nav-icon">🔢</span>
+        <span class="nav-label">Mathematics (गणित)</span>
+        <span class="nav-arrow">›</span>
+      </div>
+      <div class="nav-sub">
+        <div class="nav-sub-item" onclick="showTopics('maths','arithmetic')"><span class="sub-dot"></span>Arithmetic</div>
+        <div class="nav-sub-item" onclick="showTopics('maths','algebra')"><span class="sub-dot"></span>Algebra</div>
+        <div class="nav-sub-item" onclick="showTopics('maths','geometry')"><span class="sub-dot"></span>Geometry</div>
+        <div class="nav-sub-item" onclick="showTopics('maths','trigonometry')"><span class="sub-dot"></span>Trigonometry</div>
+        <div class="nav-sub-item" onclick="showTopics('maths','mensuration')"><span class="sub-dot"></span>Mensuration</div>
+        <div class="nav-sub-item" onclick="showTopics('maths','di')"><span class="sub-dot"></span>Data Interpretation</div>
+      </div>
+    </div>
+
+    <div class="nav-item" id="nav-reasoning">
+      <div class="nav-item-header" onclick="toggleNav('nav-reasoning')">
+        <span class="nav-icon">🧠</span>
+        <span class="nav-label">Reasoning (तार्किक)</span>
+        <span class="nav-arrow">›</span>
+      </div>
+      <div class="nav-sub">
+        <div class="nav-sub-item" onclick="showTopics('reasoning','logical')"><span class="sub-dot"></span>Logical Reasoning</div>
+        <div class="nav-sub-item" onclick="showTopics('reasoning','analytical')"><span class="sub-dot"></span>Analytical Reasoning</div>
+        <div class="nav-sub-item" onclick="showTopics('reasoning','verbal')"><span class="sub-dot"></span>Verbal & Non-Verbal</div>
+        <div class="nav-sub-item" onclick="showTopics('reasoning','puzzle')"><span class="sub-dot"></span>Puzzles</div>
+        <div class="nav-sub-item" onclick="showTopics('reasoning','coding')"><span class="sub-dot"></span>Coding-Decoding</div>
+      </div>
+    </div>
+
+    <div class="nav-item" id="nav-english">
+      <div class="nav-item-header" onclick="toggleNav('nav-english')">
+        <span class="nav-icon">📝</span>
+        <span class="nav-label">English Language</span>
+        <span class="nav-arrow">›</span>
+      </div>
+      <div class="nav-sub">
+        <div class="nav-sub-item" onclick="showTopics('english','grammar')"><span class="sub-dot"></span>Grammar</div>
+        <div class="nav-sub-item" onclick="showTopics('english','vocabulary')"><span class="sub-dot"></span>Vocabulary</div>
+        <div class="nav-sub-item" onclick="showTopics('english','rc')"><span class="sub-dot"></span>Reading Comprehension</div>
+        <div class="nav-sub-item" onclick="showTopics('english','error')"><span class="sub-dot"></span>Error Detection</div>
+        <div class="nav-sub-item" onclick="showTopics('english','essay')"><span class="sub-dot"></span>Essay/Writing</div>
+      </div>
+    </div>
+
+    <div class="nav-item" id="nav-gk">
+      <div class="nav-item-header" onclick="toggleNav('nav-gk')">
+        <span class="nav-icon">🌏</span>
+        <span class="nav-label">General Knowledge</span>
+        <span class="nav-arrow">›</span>
+      </div>
+      <div class="nav-sub">
+        <div class="nav-sub-item" onclick="showTopics('gk','static')"><span class="sub-dot"></span>Static GK</div>
+        <div class="nav-sub-item" onclick="showTopics('gk','india-world')"><span class="sub-dot"></span>India & World</div>
+        <div class="nav-sub-item" onclick="showTopics('gk','sports')"><span class="sub-dot"></span>Sports</div>
+        <div class="nav-sub-item" onclick="showTopics('gk','awards')"><span class="sub-dot"></span>Awards</div>
+        <div class="nav-sub-item" onclick="showTopics('gk','days')"><span class="sub-dot"></span>Important Days</div>
+      </div>
+    </div>
+
+    <div class="nav-item" id="nav-ca">
+      <div class="nav-item-header" onclick="toggleNav('nav-ca')">
+        <span class="nav-icon">📰</span>
+        <span class="nav-label">Current Affairs</span>
+        <span class="nav-badge">NEW</span>
+        <span class="nav-arrow">›</span>
+      </div>
+      <div class="nav-sub">
+        <div class="nav-sub-item" onclick="showTopics('ca','national')"><span class="sub-dot"></span>National News</div>
+        <div class="nav-sub-item" onclick="showTopics('ca','international')"><span class="sub-dot"></span>International News</div>
+        <div class="nav-sub-item" onclick="showTopics('ca','schemes')"><span class="sub-dot"></span>Government Schemes</div>
+        <div class="nav-sub-item" onclick="showTopics('ca','economy')"><span class="sub-dot"></span>Economy</div>
+        <div class="nav-sub-item" onclick="showTopics('ca','scitech')"><span class="sub-dot"></span>Science & Technology</div>
+      </div>
+    </div>
+
+    <div class="nav-item" id="nav-science">
+      <div class="nav-item-header" onclick="toggleNav('nav-science')">
+        <span class="nav-icon">🔬</span>
+        <span class="nav-label">General Science</span>
+        <span class="nav-arrow">›</span>
+      </div>
+      <div class="nav-sub">
+        <div class="nav-sub-item" onclick="showTopics('science','physics')"><span class="sub-dot"></span>Physics</div>
+        <div class="nav-sub-item" onclick="showTopics('science','chemistry')"><span class="sub-dot"></span>Chemistry</div>
+        <div class="nav-sub-item" onclick="showTopics('science','biology')"><span class="sub-dot"></span>Biology</div>
+      </div>
+    </div>
+
+    <div class="nav-item" id="nav-computer">
+      <div class="nav-item-header" onclick="toggleNav('nav-computer')">
+        <span class="nav-icon">💻</span>
+        <span class="nav-label">Computer Knowledge</span>
+        <span class="nav-arrow">›</span>
+      </div>
+      <div class="nav-sub">
+        <div class="nav-sub-item" onclick="showTopics('computer','basics')"><span class="sub-dot"></span>Basic Computer</div>
+        <div class="nav-sub-item" onclick="showTopics('computer','internet')"><span class="sub-dot"></span>Internet</div>
+        <div class="nav-sub-item" onclick="showTopics('computer','msoffice')"><span class="sub-dot"></span>MS Office</div>
+        <div class="nav-sub-item" onclick="showTopics('computer','cyber')"><span class="sub-dot"></span>Cyber Security</div>
+      </div>
+    </div>
+
+    <div class="nav-item" id="nav-social">
+      <div class="nav-item-header" onclick="toggleNav('nav-social')">
+        <span class="nav-icon">🏛️</span>
+        <span class="nav-label">Social Science</span>
+        <span class="nav-arrow">›</span>
+      </div>
+      <div class="nav-sub">
+        <div class="nav-sub-item" onclick="showTopics('social','history')"><span class="sub-dot"></span>History (इतिहास)</div>
+        <div class="nav-sub-item" onclick="showTopics('social','geography')"><span class="sub-dot"></span>Geography (भूगोल)</div>
+        <div class="nav-sub-item" onclick="showTopics('social','polity')"><span class="sub-dot"></span>Political Science</div>
+        <div class="nav-sub-item" onclick="showTopics('social','economics')"><span class="sub-dot"></span>Economics</div>
+      </div>
+    </div>
+
+    <div class="nav-section-label">Exam Wise</div>
+
+    <div class="nav-item" id="nav-govt">
+      <div class="nav-item-header" onclick="toggleNav('nav-govt')">
+        <span class="nav-icon">🏛</span>
+        <span class="nav-label">Government Exams</span>
+        <span class="nav-arrow">›</span>
+      </div>
+      <div class="nav-sub">
+        <div class="nav-sub-item" onclick="showExamDetail('upsc')"><span class="sub-dot"></span>UPSC Civil Services</div>
+        <div class="nav-sub-item" onclick="showExamDetail('ssc-cgl')"><span class="sub-dot"></span>SSC CGL</div>
+        <div class="nav-sub-item" onclick="showExamDetail('bank-po')"><span class="sub-dot"></span>Bank PO</div>
+        <div class="nav-sub-item" onclick="showExamDetail('rrb')"><span class="sub-dot"></span>Railway (RRB)</div>
+      </div>
+    </div>
+
+    <div class="nav-item" id="nav-eng-exam">
+      <div class="nav-item-header" onclick="toggleNav('nav-eng-exam')">
+        <span class="nav-icon">⚙️</span>
+        <span class="nav-label">Engineering Exams</span>
+        <span class="nav-arrow">›</span>
+      </div>
+      <div class="nav-sub">
+        <div class="nav-sub-item" onclick="showExamDetail('jee-main')"><span class="sub-dot"></span>JEE Main</div>
+        <div class="nav-sub-item" onclick="showExamDetail('jee-adv')"><span class="sub-dot"></span>JEE Advanced</div>
+      </div>
+    </div>
+
+    <div class="nav-item" id="nav-medical">
+      <div class="nav-item-header" onclick="toggleNav('nav-medical')">
+        <span class="nav-icon">🩺</span>
+        <span class="nav-label">Medical Exams</span>
+        <span class="nav-arrow">›</span>
+      </div>
+      <div class="nav-sub">
+        <div class="nav-sub-item" onclick="showExamDetail('neet')"><span class="sub-dot"></span>NEET UG</div>
+      </div>
+    </div>
+
+    <div class="nav-item" id="nav-defence">
+      <div class="nav-item-header" onclick="toggleNav('nav-defence')">
+        <span class="nav-icon">🎖️</span>
+        <span class="nav-label">Defence Exams</span>
+        <span class="nav-arrow">›</span>
+      </div>
+      <div class="nav-sub">
+        <div class="nav-sub-item" onclick="showExamDetail('nda')"><span class="sub-dot"></span>NDA</div>
+        <div class="nav-sub-item" onclick="showExamDetail('agniveer')"><span class="sub-dot"></span>Agniveer</div>
+      </div>
+    </div>
+
+    <div class="nav-item" id="nav-teaching">
+      <div class="nav-item-header" onclick="toggleNav('nav-teaching')">
+        <span class="nav-icon">📚</span>
+        <span class="nav-label">Teaching Exams</span>
+        <span class="nav-arrow">›</span>
+      </div>
+      <div class="nav-sub">
+        <div class="nav-sub-item" onclick="showExamDetail('ctet')"><span class="sub-dot"></span>CTET</div>
+        <div class="nav-sub-item" onclick="showExamDetail('stet')"><span class="sub-dot"></span>State TET</div>
+      </div>
+    </div>
+
+    <div class="nav-section-label">Board Exams</div>
+
+    <div class="nav-item" id="nav-board">
+      <div class="nav-item-header" onclick="toggleNav('nav-board')">
+        <span class="nav-icon">🎓</span>
+        <span class="nav-label">Board Exam Syllabus</span>
+        <span class="nav-arrow">›</span>
+      </div>
+      <div class="nav-sub">
+        <div class="nav-sub-item" onclick="showExamDetail('10th')"><span class="sub-dot"></span>10th Class (CBSE/UP)</div>
+        <div class="nav-sub-item" onclick="showExamDetail('11th')"><span class="sub-dot"></span>11th Class</div>
+        <div class="nav-sub-item" onclick="showExamDetail('12th')"><span class="sub-dot"></span>12th Class</div>
+      </div>
+    </div>
+
+  </nav>
+</aside>
+
+<!-- ===== MAIN ===== -->
+<div class="main-content">
+
+  <!-- TOPBAR -->
+  <header class="topbar">
+    <button class="menu-btn" onclick="toggleSidebar()" aria-label="Menu">☰</button>
+
+    <div class="search-container">
+      <div class="search-input-wrap">
+        <span class="search-icon">🔍</span>
+        <input
+          class="search-input"
+          type="text"
+          id="mainSearch"
+          placeholder="किसी भी topic को खोजें — Arithmetic, Trigonometry, GK..."
+          autocomplete="off"
+          oninput="handleSearch(this.value)"
+          onfocus="showSearchDropdown()"
+        >
+        <button class="search-clear" id="searchClear" onclick="clearSearch()">✕</button>
+      </div>
+      <div class="search-dropdown" id="searchDropdown"></div>
+    </div>
+
+    <div class="filter-bar" id="filterBar">
+      <div class="filter-chip active" onclick="setFilter('all', this)">All</div>
+      <div class="filter-chip" onclick="setFilter('maths', this)">Maths</div>
+      <div class="filter-chip" onclick="setFilter('reasoning', this)">Reasoning</div>
+      <div class="filter-chip" onclick="setFilter('gk', this)">GK</div>
+      <div class="filter-chip" onclick="setFilter('ca', this)">Current Affairs</div>
+      <div class="filter-chip" onclick="setFilter('science', this)">Science</div>
+    </div>
+
+    <div class="topbar-right">
+      <div class="update-badge" onclick="showUpdates()">🔔 Latest Updates</div>
+      <button class="rc-btn" onclick="toggleDarkMode()" id="themeBtn" title="Dark Mode">🌙</button>
+    </div>
+  </header>
+
+  <!-- CONTENT -->
+  <main class="content-area" id="contentArea">
+
+    <!-- HOME VIEW -->
+    <div id="homeView">
+
+      <!-- Hero -->
+      <div class="home-hero animate-in">
+        <div class="hero-content">
+          <div class="hero-eyebrow">🎯 Your Complete Competitive Exam Companion</div>
+          <h1 class="hero-title">CSC Campus में<br>आपका स्वागत है</h1>
+          <p class="hero-sub">सभी Competitive Exams की तैयारी एक जगह — Mathematics, Reasoning, GK, Science, English और बहुत कुछ। Physical book जैसा reading experience।</p>
+          <div class="hero-stats">
+            <div class="hero-stat">
+              <div class="num">8+</div>
+              <div class="lbl">Core Subjects</div>
+            </div>
+            <div class="hero-stat">
+              <div class="num">50+</div>
+              <div class="lbl">Topics</div>
+            </div>
+            <div class="hero-stat">
+              <div class="num">12+</div>
+              <div class="lbl">Exams Covered</div>
+            </div>
+            <div class="hero-stat">
+              <div class="num">Free</div>
+              <div class="lbl">Always</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Latest Updates -->
+      <div class="section-title-row">
+        <h2 class="section-heading">🔔 Latest Updates</h2>
+        <a class="see-all" onclick="showUpdates()">सब देखें →</a>
+      </div>
+      <div class="update-list" id="updateList">
+        <!-- Dynamically populated -->
+      </div>
+
+      <!-- Core Subjects -->
+      <div class="section-title-row" style="margin-top:8px;">
+        <h2 class="section-heading">📖 Core Subjects</h2>
+      </div>
+      <div class="cards-grid" id="subjectGrid">
+        <!-- Dynamically populated -->
+      </div>
+
+      <!-- Exam Categories -->
+      <div class="section-title-row">
+        <h2 class="section-heading">🎯 Exam-wise Preparation</h2>
+      </div>
+      <div class="exam-grid" id="examGrid">
+        <!-- Dynamically populated -->
+      </div>
+
+    </div>
+
+    <!-- TOPIC LIST VIEW -->
+    <div class="topic-list-view" id="topicListView"></div>
+
+    <!-- READER VIEW -->
+    <div class="reader-view" id="readerView"></div>
+
+  </main>
 </div>
-
-<!-- STATS -->
-<div class="section fade-in-section">
-  <div class="section-number">00 — Context</div>
-  <h2 class="section-title">Numbers जो सब कुछ बदल देंगे</h2>
-  <div class="stats-row">
-    <div class="stat-box">
-      <span class="stat-num">90%</span>
-      <div class="stat-label">Jobs जो 2030 तक बदल जाएंगी AI की वजह से</div>
-    </div>
-    <div class="stat-box">
-      <span class="stat-num">65%</span>
-      <div class="stat-label">आज के बच्चे ऐसी jobs करेंगे जो अभी exist नहीं करती</div>
-    </div>
-    <div class="stat-box">
-      <span class="stat-num">$7T</span>
-      <div class="stat-label">Global EdTech market size by 2040 (projected)</div>
-    </div>
-    <div class="stat-box">
-      <span class="stat-num">∞</span>
-      <div class="stat-label">Learning अब कभी बंद नहीं होगी — lifelong होगी</div>
-    </div>
-  </div>
 </div>
-
-<div class="big-divider">WHERE</div>
-
-<!-- SECTION 1: WHERE -->
-<div class="section fade-in-section">
-  <div class="section-number">01 — Location</div>
-  <h2 class="section-title">कहाँ पढ़ेंगे लोग?</h2>
-
-  <div class="cards-grid">
-    <div class="card">
-      <span class="card-icon">🏫</span>
-      <div class="card-label">2025–2030</div>
-      <div class="card-title">Hybrid Schools</div>
-      <div class="card-body">
-        Physical school + online mix। हफ्ते में 3 दिन school, 2 दिन घर से। India में already CBSE schools hybrid model adopt कर रहे हैं।
-      </div>
-    </div>
-    <div class="card">
-      <span class="card-icon">🥽</span>
-      <div class="card-label">2030–2040</div>
-      <div class="card-title">Virtual Reality Classes</div>
-      <div class="card-body">
-        VR headset पहनो और Roman Empire में पहुँच जाओ। Meta, Apple सब invest कर रहे हैं। Geography की कोई limit नहीं रहेगी।
-      </div>
-    </div>
-    <div class="card">
-      <span class="card-icon">🌍</span>
-      <div class="card-label">2040–2060</div>
-      <div class="card-title">Global Classrooms</div>
-      <div class="card-body">
-        Tokyo का student, Mumbai के teacher से, Berlin के साथी के साथ पढ़ेगा। एक ही class में दुनिया के 40 देशों के बच्चे।
-      </div>
-    </div>
-    <div class="card">
-      <span class="card-icon">🧠</span>
-      <div class="card-label">2060+</div>
-      <div class="card-title">Neural Interface?</div>
-      <div class="card-body">
-        Elon Musk का Neuralink idea — directly brain में knowledge upload। Sounds crazy, लेकिन research चल रही है। शायद 50 साल में।
-      </div>
-    </div>
-  </div>
-
-  <div class="pull-quote">
-    <p>"School की building एक option बन जाएगी, requirement नहीं।"</p>
-    <cite>— Future Education Trend, World Economic Forum 2024</cite>
-  </div>
-</div>
-
-<div class="big-divider">HOW</div>
-
-<!-- SECTION 2: HOW -->
-<div class="section fade-in-section">
-  <div class="section-number">02 — Method</div>
-  <h2 class="section-title">कैसे पढ़ेंगे?</h2>
-
-  <div class="timeline">
-    <div class="timeline-item">
-      <div class="timeline-dot"></div>
-      <div class="timeline-year">PHASE 01 · अभी हो रहा है</div>
-      <div class="timeline-heading">AI Tutors — Personalized Learning</div>
-      <div class="timeline-text">
-        Khan Academy का Khanmigo, Google का LearnLM — ये AI tutors हर student को उसके pace पर पढ़ाते हैं। 
-        एक slow learner को 3 बार same concept अलग-अलग तरीके से समझाएगा। 
-        एक fast learner को आगे push करेगा। Teacher का ratio 1:40 नहीं, 1:1 होगा।
-      </div>
-    </div>
-
-    <div class="timeline-item">
-      <div class="timeline-dot"></div>
-      <div class="timeline-year">PHASE 02 · 2027–2035</div>
-      <div class="timeline-heading">Gamification — खेल-खेल में पढ़ाई</div>
-      <div class="timeline-text">
-        Duolingo ने prove किया — अगर पढ़ाई को game बना दो तो लोग खुद पढ़ते हैं। 
-        Future में सारे subjects ऐसे होंगे। History एक RPG game होगी जहाँ तुम Mughal era में decisions लोगे।
-        Physics एक puzzle game होगी। Marks नहीं, XP points मिलेंगे।
-      </div>
-    </div>
-
-    <div class="timeline-item">
-      <div class="timeline-dot"></div>
-      <div class="timeline-year">PHASE 03 · 2035–2050</div>
-      <div class="timeline-heading">Project-Based & Real World Learning</div>
-      <div class="timeline-text">
-        Rote learning completely खत्म। Syllabus नहीं, problems होंगी। 
-        "इस city का water problem कैसे solve करोगे?" — इसके लिए तुम्हें Math, Science, Civics, Communication सब चाहिए।
-        Learning automatically interdisciplinary हो जाएगी।
-      </div>
-    </div>
-
-    <div class="timeline-item">
-      <div class="timeline-dot"></div>
-      <div class="timeline-year">PHASE 04 · 2050+</div>
-      <div class="timeline-heading">Adaptive Bio-Learning</div>
-      <div class="timeline-text">
-        Wearables brain activity monitor करेंगे। जब concentration कम हो — lesson automatically pause। 
-        जब flow state हो — harder content push। 
-        Body और mind की biology के according customized learning।
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="big-divider">WHAT</div>
-
-<!-- SECTION 3: WHAT -->
-<div class="section fade-in-section">
-  <div class="section-number">03 — Curriculum</div>
-  <h2 class="section-title">क्या पढ़ेंगे?</h2>
-
-  <p style="font-family:'Noto Sans Devanagari';font-size:14px;line-height:1.9;color:#333;font-weight:300;margin-bottom:30px;">
-    यह सबसे बड़ा सवाल है। Current curriculum 150 साल पुराने Industrial Age के लिए design हुई थी — 
-    factory workers बनाने के लिए। Future में यह completely बदलेगी।
-  </p>
-
-  <table class="compare-table">
-    <thead>
-      <tr>
-        <th>Subject</th>
-        <th>आज क्या पढ़ाते हैं</th>
-        <th>Future में क्या होगा</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><strong>Math</strong></td>
-        <td class="old">Long division, calculus रटना</td>
-        <td class="new">Data literacy, statistical thinking, AI के साथ problem solving</td>
-      </tr>
-      <tr>
-        <td><strong>Science</strong></td>
-        <td class="old">Theory याद करना, diagrams बनाना</td>
-        <td class="new">Biotech ethics, climate science, hands-on experimentation</td>
-      </tr>
-      <tr>
-        <td><strong>History</strong></td>
-        <td class="old">Dates और battles रटना</td>
-        <td class="new">Pattern recognition, systems thinking, civilizational lessons</td>
-      </tr>
-      <tr>
-        <td><strong>Language</strong></td>
-        <td class="old">Grammar rules, essays</td>
-        <td class="new">Emotional intelligence, storytelling, AI prompting skills</td>
-      </tr>
-      <tr>
-        <td><strong>New: AI Literacy</strong></td>
-        <td class="old">नहीं था</td>
-        <td class="new">How AI works, ethics, how to use/question AI tools</td>
-      </tr>
-      <tr>
-        <td><strong>New: Mental Health</strong></td>
-        <td class="old">नहीं था</td>
-        <td class="new">Emotional regulation, mindfulness, resilience building</td>
-      </tr>
-      <tr>
-        <td><strong>New: Financial Literacy</strong></td>
-        <td class="old">नहीं था (still नहीं है!)</td>
-        <td class="new">Investing, taxes, crypto, personal finance — mandatory subject</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <div class="tag-row">
-    <div class="tag">Critical Thinking</div>
-    <div class="tag">Creativity</div>
-    <div class="tag">Collaboration</div>
-    <div class="tag">Communication</div>
-    <div class="tag">AI Literacy</div>
-    <div class="tag">Emotional Intelligence</div>
-    <div class="tag">Climate Science</div>
-    <div class="tag">Ethics</div>
-    <div class="tag">Entrepreneurship</div>
-    <div class="tag">Systems Thinking</div>
-  </div>
-  <p style="font-family:'JetBrains Mono';font-size:10px;color:var(--muted);letter-spacing:2px;">↑ FUTURE के सबसे important skills</p>
-</div>
-
-<div class="big-divider">WHO</div>
-
-<!-- SECTION 4: WHO TEACHES -->
-<div class="section fade-in-section">
-  <div class="section-number">04 — Educators</div>
-  <h2 class="section-title">कौन पढ़ाएगा?</h2>
-
-  <div class="cards-grid">
-    <div class="card">
-      <span class="card-icon">🤖</span>
-      <div class="card-label">Role #1</div>
-      <div class="card-title">AI Tutor</div>
-      <div class="card-body">
-        24/7 available, infinite patience, personalized। Basic concepts, Q&A, practice — AI handle करेगा।
-        Human teacher का 60% काम AI ले लेगा।
-      </div>
-    </div>
-    <div class="card">
-      <span class="card-icon">👨‍🏫</span>
-      <div class="card-label">Role #2</div>
-      <div class="card-title">Human Mentor</div>
-      <div class="card-body">
-        Teacher अब "knowledge deliverer" नहीं, "coach" बनेगा। Inspire करना, real-world connect करना, 
-        emotional support — यह काम AI नहीं कर सकता।
-      </div>
-    </div>
-    <div class="card">
-      <span class="card-icon">🌐</span>
-      <div class="card-label">Role #3</div>
-      <div class="card-title">Expert Practitioners</div>
-      <div class="card-body">
-        Real scientists, engineers, artists direct students को पढ़ाएंगे — virtually। 
-        ISRO का scientist, Bollywood director, startup founder — सब accessible होंगे।
-      </div>
-    </div>
-    <div class="card">
-      <span class="card-icon">👥</span>
-      <div class="card-label">Role #4</div>
-      <div class="card-title">Peers & Community</div>
-      <div class="card-body">
-        Peer-to-peer learning बढ़ेगा। जो student किसी concept अच्छे से जानता है,
-        वो दूसरों को सिखाएगा। "Teaching is the best learning" — यह model scale होगा।
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- DARK WARNING SECTION -->
-<div class="section fade-in-section">
-  <div class="section-number">05 — Risks</div>
-  <h2 class="section-title">Dangers — जो कोई नहीं बोलता</h2>
-
-  <div class="danger-box">
-    <h3>⚠ Digital Divide और बड़ा होगा</h3>
-    <p>
-      India में अभी भी 40 crore+ लोगों के पास reliable internet नहीं है। 
-      Future education जितनी ज्यादा technology पर depend होगी, उतना ज्यादा 
-      rich-poor gap बढ़ेगा। अमीर बच्चों को best AI tutors, VR labs मिलेंगे — 
-      गरीब बच्चे वहीं रहेंगे। यह सबसे बड़ा खतरा है।
-    </p>
-  </div>
-
-  <div class="danger-box" style="background:#0a1a0a; border-color: #2a8a3a;">
-    <h3 style="color:#6bff8a;">🧠 Attention Crisis</h3>
-    <p>
-      Social media ने already attention span 8 seconds कर दी है। Gamified, 
-      dopamine-driven learning से short-term engagement तो बढ़ेगी, लेकिन 
-      deep thinking, boredom tolerance, और sustained focus — ये skills 
-      कम होती जाएंगी। Future में एक बड़ा paradox होगा।
-    </p>
-  </div>
-
-  <div class="danger-box" style="background:#0a0a1a; border-color: #3a3a9a;">
-    <h3 style="color:#8a8aff;">📜 Credentials का Crisis</h3>
-    <p>
-      जब कोई भी घर बैठकर MIT का course कर सकता है, तो degree का क्या मतलब रहेगा? 
-      Companies already skills > degrees prefer कर रही हैं। 
-      आने वाले 20 सालों में traditional university system पर serious existential threat होगा — 
-      खासकर average colleges के लिए।
-    </p>
-  </div>
-</div>
-
-<!-- INDIA SPECIFIC -->
-<div class="section fade-in-section">
-  <div class="section-number">06 — India Focus</div>
-  <h2 class="section-title">India में खास बात</h2>
-
-  <div class="timeline">
-    <div class="timeline-item">
-      <div class="timeline-dot"></div>
-      <div class="timeline-year">OPPORTUNITY</div>
-      <div class="timeline-heading">Young Population = Biggest Advantage</div>
-      <div class="timeline-text">
-        India की median age 28 साल है। 2030 तक दुनिया का सबसे बड़ा working-age population 
-        हमारे पास होगा। अगर सही education मिली — India global knowledge superpower बन सकता है।
-        NEP 2020 इसी direction में है।
-      </div>
-    </div>
-
-    <div class="timeline-item">
-      <div class="timeline-dot"></div>
-      <div class="timeline-year">TREND</div>
-      <div class="timeline-heading">Regional Language Learning का Rise</div>
-      <div class="timeline-text">
-        AI real-time translation की वजह से अब Hindi, Tamil, Telugu में world-class content available होगा।
-        Language barrier खत्म होगा। पहली बार tier-3 cities के students को equal opportunity मिलेगी।
-      </div>
-    </div>
-
-    <div class="timeline-item">
-      <div class="timeline-dot"></div>
-      <div class="timeline-year">CHALLENGE</div>
-      <div class="timeline-heading">Coaching Culture vs. Real Learning</div>
-      <div class="timeline-text">
-        JEE, NEET की coaching industry ₹50,000 crore+ की है। यह industry real learning नहीं, 
-        test-cracking सिखाती है। जब AI सब handle करेगा, तब यह model completely obsolete होगा।
-        लेकिन resistance बहुत होगा।
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- FINAL TAKEAWAY -->
-<div class="section fade-in-section">
-  <div class="section-number">07 — Conclusion</div>
-  <h2 class="section-title">असली बात क्या है?</h2>
-
-  <div class="pull-quote">
-    <p>"Future में सबसे valuable skill यह नहीं कि तुम क्या जानते हो — बल्कि यह है कि तुम कितनी जल्दी नया सीख सकते हो।"</p>
-    <cite>— Learning to Learn: The Meta-Skill</cite>
-  </div>
-
-  <div class="cards-grid">
-    <div class="card">
-      <span class="card-icon">✅</span>
-      <div class="card-title">जो बचेगा</div>
-      <div class="card-body">
-        Human connection, creativity, ethics, emotional intelligence, critical thinking, 
-        leadership, adaptability। ये skills AI replace नहीं कर सकता।
-      </div>
-    </div>
-    <div class="card">
-      <span class="card-icon">❌</span>
-      <div class="card-title">जो खत्म होगा</div>
-      <div class="card-body">
-        Rote memorization, passive listening, one-size-fits-all curriculum, 
-        single exam systems, geography-based learning limits।
-      </div>
-    </div>
-    <div class="card">
-      <span class="card-icon">🎯</span>
-      <div class="card-title">आज क्या करें?</div>
-      <div class="card-body">
-        AI tools सीखो, curiosity बनाए रखो, languages सीखो, build करो — 
-        consume मत सिर्फ। Learning को identity बना लो, degree को नहीं।
-      </div>
-    </div>
-  </div>
-</div>
-
-<footer>
-  <h2>पढ़ना बंद नहीं होगा — बस बदल जाएगा।</h2>
-  <p style="margin-top:16px;">Future Education Deep Analysis · Claude AI · 2025</p>
-</footer>
 
 <script>
-  // Intersection Observer for animations
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-      }
-    });
-  }, { threshold: 0.1 });
+// ===== DATA =====
+const subjectsData = [
+  { id: 'maths', name: 'Mathematics', hindi: 'गणित', icon: '🔢', color: '#2563eb', topics: ['Arithmetic','Algebra','Geometry','Trigonometry','Mensuration','Data Interpretation'], desc: '6 topics' },
+  { id: 'reasoning', name: 'Reasoning', hindi: 'तार्किक क्षमता', icon: '🧠', color: '#7c3aed', topics: ['Logical Reasoning','Analytical Reasoning','Verbal & Non-Verbal','Puzzles','Coding-Decoding'], desc: '5 topics' },
+  { id: 'english', name: 'English', hindi: 'अंग्रेजी', icon: '📝', color: '#059669', topics: ['Grammar','Vocabulary','Reading Comprehension','Error Detection','Essay/Writing'], desc: '5 topics' },
+  { id: 'gk', name: 'General Knowledge', hindi: 'सामान्य ज्ञान', icon: '🌏', color: '#d97706', topics: ['Static GK','India & World','Sports','Awards','Important Days'], desc: '5 topics' },
+  { id: 'ca', name: 'Current Affairs', hindi: 'समसामयिक', icon: '📰', color: '#dc2626', topics: ['National News','International News','Govt Schemes','Economy','Science & Tech'], desc: '5 topics | Updated Daily' },
+  { id: 'science', name: 'General Science', hindi: 'सामान्य विज्ञान', icon: '🔬', color: '#0891b2', topics: ['Physics','Chemistry','Biology'], desc: '3 topics' },
+  { id: 'computer', name: 'Computer Knowledge', hindi: 'कंप्यूटर', icon: '💻', color: '#4f46e5', topics: ['Basic Computer','Internet','MS Office','Cyber Security'], desc: '4 topics' },
+  { id: 'social', name: 'Social Science', hindi: 'सामाजिक विज्ञान', icon: '🏛️', color: '#b45309', topics: ['History','Geography','Political Science','Economics'], desc: '4 topics' },
+];
 
-  document.querySelectorAll('.fade-in-section, .timeline-item').forEach(el => {
-    observer.observe(el);
+const examsData = [
+  { id: 'upsc', name: 'UPSC Civil Services', icon: '🏛', bg: '#eff6ff', subjects: ['Maths','Reasoning','English','GK/Current Affairs','Essay'], desc: 'IAS/IPS/IFS Exam' },
+  { id: 'ssc-cgl', name: 'SSC CGL', icon: '📋', bg: '#f0fdf4', subjects: ['Maths','Reasoning','English','GK'], desc: 'Staff Selection Commission' },
+  { id: 'bank-po', name: 'Bank PO Exam', icon: '🏦', bg: '#fefce8', subjects: ['Maths','Reasoning','English','GK','Computer'], desc: 'IBPS/SBI PO' },
+  { id: 'rrb', name: 'Railway RRB', icon: '🚂', bg: '#fff7ed', subjects: ['Maths','Reasoning','GK','Current Affairs'], desc: 'NTPC/Group D/ALP' },
+  { id: 'jee-main', name: 'JEE Main', icon: '⚙️', bg: '#fdf4ff', subjects: ['Physics','Chemistry','Mathematics'], desc: 'Engineering Entrance' },
+  { id: 'neet', name: 'NEET UG', icon: '🩺', bg: '#f0fdfa', subjects: ['Biology','Physics','Chemistry'], desc: 'Medical Entrance' },
+  { id: 'nda', name: 'NDA', icon: '🎖️', bg: '#fef2f2', subjects: ['Maths','Reasoning','GK','English'], desc: 'National Defence Academy' },
+  { id: 'ctet', name: 'CTET', icon: '📚', bg: '#fafaf9', subjects: ['Child Development','Pedagogy','Hindi/English','Maths','EVS'], desc: 'Central Teacher Eligibility' },
+];
+
+const updatesData = [
+  { id: 1, title: 'Arithmetic — Percentage के सभी Formulas और Tricks', subject: 'Mathematics', time: '2025-05-07T10:30:00', isNew: true },
+  { id: 2, title: 'Coding-Decoding — Pattern Recognition Techniques', subject: 'Reasoning', time: '2025-05-07T08:15:00', isNew: true },
+  { id: 3, title: 'Current Affairs: May 2025 — National & International Summary', subject: 'Current Affairs', time: '2025-05-06T20:00:00', isNew: true },
+  { id: 4, title: 'Trigonometry — Identities, Values Table aur Solved Examples', subject: 'Mathematics', time: '2025-05-05T14:00:00', isNew: false },
+  { id: 5, title: 'Government Schemes 2024-25 — Complete List', subject: 'GK', time: '2025-05-04T09:00:00', isNew: false },
+];
+
+// Sample rich content for demo
+const topicContent = {
+  'maths-arithmetic': {
+    title: 'Arithmetic — पूर्ण अध्याय',
+    subject: 'Mathematics', subIcon: '🔢',
+    updated: '2025-05-07T10:30:00',
+    readTime: '25 min',
+    content: `
+<h2>Arithmetic क्या है?</h2>
+<p>Arithmetic (अंकगणित) Mathematics की वह शाखा है जिसमें हम संख्याओं के basic operations — जोड़, घटाव, गुणा, भाग — और उनके applications को पढ़ते हैं। Competitive exams में Arithmetic सबसे important और scoring topic है।</p>
+
+<div class="highlight-box">
+💡 <strong>Key Tip:</strong> Arithmetic में 30-40% questions आते हैं SSC CGL और Bank PO में। इसे strong करने से बाकी topics आसान हो जाते हैं।
+</div>
+
+<h2>1. Percentage (प्रतिशत)</h2>
+<p>Percentage का मतलब है "प्रति सौ" (per hundred)। किसी value को 100 के अनुपात में express करना।</p>
+
+<div class="formula-box">
+Percentage = (Value / Total Value) × 100
+</div>
+
+<h3>महत्वपूर्ण Formulas:</h3>
+<ul>
+<li><strong>x% of y = y% of x</strong> — यह trick time बचाती है</li>
+<li>अगर A का x% = B, तो B A का कितना % है? → <strong>(100/x) × 100 %</strong></li>
+<li>x% increase के बाद decrease: Net change = <strong>x² / 100 %</strong> (loss)</li>
+</ul>
+
+<div class="example-box">
+<strong>Example 1</strong>
+Q: 360 का 15% क्या है?<br>
+Sol: 360 × 15/100 = 360 × 0.15 = <strong>54</strong>
+</div>
+
+<div class="example-box">
+<strong>Example 2</strong>
+Q: एक number 20% बढ़ने के बाद 240 हो जाता है। Original number क्या था?<br>
+Sol: Original = 240 × 100/120 = <strong>200</strong>
+</div>
+
+<h2>2. Profit & Loss (लाभ और हानि)</h2>
+<p>व्यापार में Cost Price (CP) और Selling Price (SP) का अंतर ही Profit या Loss होता है।</p>
+
+<div class="formula-box">
+Profit % = [(SP - CP) / CP] × 100
+Loss % = [(CP - SP) / CP] × 100
+</div>
+
+<h3>Short Tricks:</h3>
+<ul>
+<li>अगर दो articles same price पर बेचे गए, एक पर x% profit और एक पर x% loss, तो हमेशा <strong>x²/100 % Loss</strong> होता है</li>
+<li>Marked Price पर Discount: <strong>SP = MP × (100 - Discount%)/100</strong></li>
+</ul>
+
+<h2>3. Simple & Compound Interest</h2>
+
+<div class="formula-box">
+SI = (P × R × T) / 100
+CI = P × [(1 + R/100)^T - 1]
+</div>
+
+<div class="highlight-box">
+🎯 <strong>Important:</strong> CI - SI for 2 years = P × (R/100)²<br>
+यह formula directly CI और SI का difference निकालता है।
+</div>
+
+<h2>4. Ratio & Proportion (अनुपात और समानुपात)</h2>
+<p>Ratio दो quantities का comparison होता है। अगर A:B = 3:4, इसका मतलब A और B के values में 3 और 4 का ratio है।</p>
+
+<ul>
+<li>Componendo: (a+b)/b = (c+d)/d</li>
+<li>Dividendo: (a-b)/b = (c-d)/d</li>
+<li>Invertendo: b/a = d/c</li>
+</ul>
+
+<h2>5. Average (औसत)</h2>
+
+<div class="formula-box">
+Average = Sum of all values / Number of values
+</div>
+
+<div class="example-box">
+<strong>Trick:</strong>
+अगर n consecutive numbers का average निकालना हो, तो average = (First + Last)/2
+</div>
+
+<h2>Practice Questions</h2>
+<ol>
+<li>एक दुकानदार ने ₹400 में सामान खरीदा और ₹500 में बेचा। Profit % क्या है?</li>
+<li>₹5000 पर 2 साल में 10% annual rate से Simple Interest कितना होगा?</li>
+<li>15, 25, 35, 45 का average क्या है?</li>
+</ol>
+
+<div class="highlight-box">
+✅ <strong>Answers:</strong> 1) 25%  2) ₹1000  3) 30
+</div>
+`
+  },
+  'reasoning-logical': {
+    title: 'Logical Reasoning — Complete Guide',
+    subject: 'Reasoning', subIcon: '🧠',
+    updated: '2025-05-06T16:00:00',
+    readTime: '20 min',
+    content: `
+<h2>Logical Reasoning क्यों important है?</h2>
+<p>Logical Reasoning आपकी सोचने और निर्णय लेने की क्षमता को test करती है। SSC, Bank, Railway सभी exams में इसके 20-30 questions होते हैं।</p>
+
+<h2>1. Syllogism (न्यायवाक्य)</h2>
+<p>Syllogism में two या more statements (premises) दिए जाते हैं और उनसे conclusion निकालना होता है।</p>
+
+<div class="highlight-box">
+📌 <strong>Venn Diagram Method</strong> सबसे reliable है Syllogism solve करने के लिए।
+</div>
+
+<h3>Types of Statements:</h3>
+<ul>
+<li><strong>All A are B</strong> → A पूरी तरह B के अंदर है</li>
+<li><strong>Some A are B</strong> → A और B का intersection है</li>
+<li><strong>No A is B</strong> → A और B अलग-अलग circles हैं</li>
+<li><strong>Some A are not B</strong> → A का कुछ हिस्सा B के बाहर है</li>
+</ul>
+
+<h2>2. Blood Relations (रक्त संबंध)</h2>
+<p>Family tree बनाकर solve करें। इससे complex problems भी आसान हो जाती हैं।</p>
+
+<div class="example-box">
+<strong>Example:</strong>
+A, B का Father है। C, A की Mother है। D, B का Brother है।<br>
+D का C से क्या relation है? → <strong>Grandson</strong>
+</div>
+
+<h2>3. Direction & Distance</h2>
+<ul>
+<li>हमेशा North को ऊपर मानकर diagram बनाएं</li>
+<li>Clockwise rotation: N→E→S→W</li>
+<li>Right turn = clockwise, Left turn = anticlockwise</li>
+</ul>
+
+<h2>4. Series Completion</h2>
+<p>Numbers या letters का pattern पहचानना।</p>
+
+<div class="formula-box">
+2, 6, 12, 20, 30, ?
+Pattern: +4, +6, +8, +10, +12
+Answer: 42
+</div>
+`
+  }
+};
+
+// ===== INIT =====
+document.addEventListener('DOMContentLoaded', () => {
+  renderSubjects();
+  renderExams();
+  renderUpdates();
+  document.addEventListener('click', e => {
+    if (!e.target.closest('.search-container')) hideSearchDropdown();
   });
+  window.addEventListener('scroll', updateReadingProgress, { passive: true });
+});
+
+// ===== RENDER HOME =====
+function renderSubjects() {
+  const grid = document.getElementById('subjectGrid');
+  grid.innerHTML = subjectsData.map(s => `
+    <div class="subject-card animate-in" style="--card-color:${s.color}" onclick="showSubject('${s.id}')">
+      <div class="card-icon">${s.icon}</div>
+      <div class="card-name">${s.name}</div>
+      <div style="font-size:12px;color:#666;font-family:'Noto Sans Devanagari',sans-serif;margin-bottom:4px;">${s.hindi}</div>
+      <div class="card-meta">${s.desc}</div>
+    </div>
+  `).join('');
+}
+
+function renderExams() {
+  const grid = document.getElementById('examGrid');
+  grid.innerHTML = examsData.map(e => `
+    <div class="exam-card" onclick="showExamDetail('${e.id}')">
+      <div class="exam-card-icon" style="background:${e.bg}">${e.icon}</div>
+      <div class="exam-card-info">
+        <h3>${e.name}</h3>
+        <p>${e.desc}</p>
+        <div class="exam-tags">
+          ${e.subjects.map(s => `<span class="exam-tag">${s}</span>`).join('')}
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderUpdates() {
+  const list = document.getElementById('updateList');
+  list.innerHTML = updatesData.slice(0, 4).map(u => `
+    <div class="update-item ${u.isNew ? 'new' : ''}" onclick="openUpdate(${u.id})">
+      <div class="update-dot"></div>
+      <div class="update-content">
+        <div class="update-title">${u.title}</div>
+        <div class="update-meta">
+          <span style="background:var(--primary);color:#fff;padding:1px 8px;border-radius:20px;font-size:10px;">${u.subject}</span>
+          <span class="update-time">${formatTime(u.time)}</span>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function formatTime(iso) {
+  const d = new Date(iso);
+  const now = new Date();
+  const diff = Math.floor((now - d) / 60000);
+  if (diff < 60) return `${diff} min पहले`;
+  if (diff < 1440) return `${Math.floor(diff/60)} घंटे पहले`;
+  return d.toLocaleDateString('hi-IN', { day:'numeric', month:'short', year:'numeric' }) + ' — ' + d.toLocaleTimeString('hi-IN', { hour:'2-digit', minute:'2-digit' });
+}
+
+// ===== NAVIGATION =====
+function toggleNav(id) {
+  const item = document.getElementById(id);
+  const wasOpen = item.classList.contains('open');
+  document.querySelectorAll('.nav-item.open').forEach(el => el.classList.remove('open'));
+  if (!wasOpen) item.classList.add('open');
+}
+
+function showHome() {
+  hideAllViews();
+  document.getElementById('homeView').style.display = 'block';
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  closeSidebar();
+}
+
+function hideAllViews() {
+  document.getElementById('homeView').style.display = 'none';
+  document.getElementById('topicListView').classList.remove('active');
+  document.getElementById('readerView').classList.remove('active');
+}
+
+function showSubject(id) {
+  const s = subjectsData.find(x => x.id === id);
+  if (!s) return;
+  hideAllViews();
+  const view = document.getElementById('topicListView');
+  view.classList.add('active');
+  view.innerHTML = `
+    <div class="reader-breadcrumb">
+      <span class="breadcrumb-item" onclick="showHome()">🏠 Home</span>
+      <span class="breadcrumb-sep">›</span>
+      <span class="breadcrumb-item current">${s.name}</span>
+    </div>
+    <div class="topic-list-header">
+      <div class="topic-header-icon" style="background:${s.color}22;font-size:28px;">${s.icon}</div>
+      <div class="topic-header-info">
+        <h2>${s.name} — ${s.hindi}</h2>
+        <p>${s.desc} available • Click करके topic खोलें</p>
+      </div>
+    </div>
+    <div class="topic-cards">
+      ${s.topics.map((t, i) => `
+        <div class="topic-card" onclick="openTopic('${s.id}','${t.toLowerCase().replace(/ /g,'-')}','${t}')">
+          <div class="topic-card-num" style="background:${s.color}">${String(i+1).padStart(2,'0')}</div>
+          <div class="topic-card-info">
+            <div class="topic-card-title">${t}</div>
+            <div class="topic-card-sub">Tap to read →</div>
+          </div>
+          <div class="topic-card-arrow">›</div>
+        </div>
+      `).join('')}
+    </div>
+  `;
+  closeSidebar();
+  window.scrollTo(0, 0);
+}
+
+function showTopics(subjectId, topicId) {
+  const s = subjectsData.find(x => x.id === subjectId);
+  if (s) {
+    openTopic(subjectId, topicId, topicId.charAt(0).toUpperCase() + topicId.slice(1));
+  }
+  closeSidebar();
+}
+
+function openTopic(subjectId, topicKey, topicName) {
+  const contentKey = `${subjectId}-${topicKey}`;
+  const s = subjectsData.find(x => x.id === subjectId);
+  const data = topicContent[contentKey];
+  hideAllViews();
+  const view = document.getElementById('readerView');
+  view.classList.add('active');
+
+  const title = data ? data.title : `${topicName}`;
+  const updated = data ? formatTime(data.updated) : 'Recently updated';
+  const readTime = data ? data.readTime : '15 min';
+  const bodyContent = data ? data.content : `
+    <h2>${topicName}</h2>
+    <p>यह topic जल्द add किया जाएगा। CSC Campus पर नए content regularly upload होते हैं।</p>
+    <div class="highlight-box">📌 Content coming soon! Meanwhile दूसरे topics explore करें।</div>
+  `;
+
+  view.innerHTML = `
+    <div class="reader-breadcrumb">
+      <span class="breadcrumb-item" onclick="showHome()">🏠 Home</span>
+      <span class="breadcrumb-sep">›</span>
+      <span class="breadcrumb-item" onclick="showSubject('${subjectId}')">${s ? s.name : subjectId}</span>
+      <span class="breadcrumb-sep">›</span>
+      <span class="breadcrumb-item current">${topicName}</span>
+    </div>
+
+    <div class="reader-controls" id="readerControls">
+      <button class="rc-btn active" onclick="setFontSize('sm')" title="Small">A</button>
+      <button class="rc-btn" onclick="setFontSize('md')" title="Medium" style="font-size:15px">A</button>
+      <button class="rc-btn" onclick="setFontSize('lg')" title="Large" style="font-size:17px">A</button>
+      <div class="rc-divider"></div>
+      <button class="rc-btn" onclick="toggleSepia()" title="Sepia mode">🌅</button>
+      <button class="rc-btn" onclick="toggleDarkMode()" title="Dark mode">🌙</button>
+      <div class="rc-divider"></div>
+      <span style="font-size:12px;color:var(--text-muted);padding:0 8px;">📖 ${readTime} read</span>
+    </div>
+
+    <div class="reader-paper" id="readerPaper">
+      <div class="reader-subject-tag">${s ? s.icon : '📖'} ${s ? s.name : subjectId}</div>
+      <h1 class="reader-title">${title}</h1>
+      <div class="reader-meta">
+        <span>🕐 Updated: ${updated}</span>
+        <span>⏱ ${readTime} read</span>
+        <span class="timestamp">CSC Campus</span>
+      </div>
+      <div class="reader-body fs-md" id="readerBody">
+        ${bodyContent}
+      </div>
+    </div>
+  `;
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  closeSidebar();
+}
+
+function showExamDetail(examId) {
+  const e = examsData.find(x => x.id === examId) || { id: examId, name: examId.toUpperCase(), subjects: [], desc: '' };
+  hideAllViews();
+  const view = document.getElementById('topicListView');
+  view.classList.add('active');
+  view.innerHTML = `
+    <div class="reader-breadcrumb">
+      <span class="breadcrumb-item" onclick="showHome()">🏠 Home</span>
+      <span class="breadcrumb-sep">›</span>
+      <span class="breadcrumb-item current">${e.name}</span>
+    </div>
+    <div class="topic-list-header">
+      <div class="topic-header-icon" style="background:#eff6ff">${e.icon || '📋'}</div>
+      <div class="topic-header-info">
+        <h2>${e.name}</h2>
+        <p>${e.desc} — Important Subjects & Syllabus</p>
+      </div>
+    </div>
+    <div class="topic-cards">
+      ${(e.subjects || []).map((s, i) => {
+        const sub = subjectsData.find(x => x.name.toLowerCase().includes(s.toLowerCase().split('/')[0].toLowerCase()));
+        return `
+          <div class="topic-card" onclick="${sub ? `showSubject('${sub.id}')` : ''}">
+            <div class="topic-card-num" style="background:var(--primary)">${String(i+1).padStart(2,'0')}</div>
+            <div class="topic-card-info">
+              <div class="topic-card-title">${sub ? sub.icon : '📖'} ${s}</div>
+              <div class="topic-card-sub">${sub ? sub.hindi : 'Tap to explore'}</div>
+            </div>
+            <div class="topic-card-arrow">›</div>
+          </div>
+        `;
+      }).join('')}
+    </div>
+    <div style="margin-top:24px;padding:20px;background:var(--bg-card);border:1px solid var(--border);border-radius:12px;">
+      <h3 style="font-family:var(--font-display);font-size:20px;margin-bottom:12px;">📋 ${e.name} — Exam Pattern</h3>
+      <p style="font-family:'Noto Sans Devanagari',sans-serif;font-size:14px;color:var(--text-secondary);line-height:1.8;">
+        इस exam का detailed syllabus, exam pattern, previous year questions और preparation tips जल्द add किए जाएंगे।<br>
+        Subject-wise preparation के लिए ऊपर दिए गए subjects पर click करें।
+      </p>
+    </div>
+  `;
+  closeSidebar();
+  window.scrollTo(0, 0);
+}
+
+function openUpdate(id) {
+  const u = updatesData.find(x => x.id === id);
+  if (!u) return;
+  const subjectId = subjectsData.find(s => s.name.includes(u.subject) || u.subject.includes(s.name))?.id || 'maths';
+  openTopic(subjectId, u.title.toLowerCase().replace(/[^a-z]/g, '-').substring(0, 20), u.title);
+}
+
+function showUpdates() {
+  hideAllViews();
+  const view = document.getElementById('topicListView');
+  view.classList.add('active');
+  const sorted = [...updatesData].sort((a, b) => new Date(b.time) - new Date(a.time));
+  view.innerHTML = `
+    <div class="reader-breadcrumb">
+      <span class="breadcrumb-item" onclick="showHome()">🏠 Home</span>
+      <span class="breadcrumb-sep">›</span>
+      <span class="breadcrumb-item current">🔔 Latest Updates</span>
+    </div>
+    <h2 style="font-family:var(--font-display);font-size:26px;margin-bottom:20px;">Latest Updates — नवीनतम सामग्री</h2>
+    <div class="update-list">
+      ${sorted.map(u => `
+        <div class="update-item ${u.isNew ? 'new' : ''}" onclick="openUpdate(${u.id})">
+          <div class="update-dot"></div>
+          <div class="update-content">
+            <div class="update-title">${u.title}</div>
+            <div class="update-meta">
+              <span style="background:var(--primary);color:#fff;padding:1px 8px;border-radius:20px;font-size:10px;">${u.subject}</span>
+              <span>${formatTime(u.time)}</span>
+            </div>
+          </div>
+        </div>
+      `).join('')}
+    </div>
+  `;
+}
+
+// ===== SEARCH =====
+const allSearchItems = [
+  ...subjectsData.flatMap(s => s.topics.map(t => ({ title: t, subject: s.name, icon: s.icon, subjectId: s.id, topicKey: t.toLowerCase().replace(/ &/g,'').replace(/ /g,'-') }))),
+  ...examsData.map(e => ({ title: e.name, subject: e.desc, icon: e.icon, examId: e.id })),
+];
+
+function handleSearch(val) {
+  const clear = document.getElementById('searchClear');
+  clear.classList.toggle('show', val.length > 0);
+  if (val.length < 2) { hideSearchDropdown(); return; }
+  const results = allSearchItems.filter(item =>
+    item.title.toLowerCase().includes(val.toLowerCase()) ||
+    item.subject.toLowerCase().includes(val.toLowerCase())
+  ).slice(0, 8);
+  showResults(results, val);
+}
+
+function showResults(results, query) {
+  const dd = document.getElementById('searchDropdown');
+  if (results.length === 0) {
+    dd.innerHTML = `<div class="search-no-result">🔍 "${query}" के लिए कोई result नहीं मिला</div>`;
+  } else {
+    dd.innerHTML = results.map(r => `
+      <div class="search-result-item" onclick="${r.examId ? `showExamDetail('${r.examId}')` : `openTopic('${r.subjectId}','${r.topicKey}','${r.title}')`}; hideSearchDropdown()">
+        <div class="result-icon">${r.icon}</div>
+        <div class="result-info">
+          <div class="result-title">${highlightQuery(r.title, query)}</div>
+          <div class="result-meta">${r.subject}</div>
+        </div>
+        <div class="result-tag">${r.examId ? 'Exam' : 'Topic'}</div>
+      </div>
+    `).join('');
+  }
+  dd.classList.add('show');
+}
+
+function highlightQuery(text, query) {
+  const re = new RegExp(`(${query})`, 'gi');
+  return text.replace(re, '<mark style="background:#fff3cd;border-radius:2px;padding:0 2px">$1</mark>');
+}
+
+function showSearchDropdown() {
+  const val = document.getElementById('mainSearch').value;
+  if (val.length >= 2) handleSearch(val);
+}
+
+function hideSearchDropdown() {
+  document.getElementById('searchDropdown').classList.remove('show');
+}
+
+function clearSearch() {
+  const inp = document.getElementById('mainSearch');
+  inp.value = '';
+  document.getElementById('searchClear').classList.remove('show');
+  hideSearchDropdown();
+  inp.focus();
+}
+
+function filterSidebar(val) {
+  document.querySelectorAll('.nav-item').forEach(item => {
+    const text = item.textContent.toLowerCase();
+    item.style.display = text.includes(val.toLowerCase()) || val === '' ? '' : 'none';
+  });
+}
+
+// ===== FILTER CHIPS =====
+let activeFilter = 'all';
+function setFilter(f, el) {
+  activeFilter = f;
+  document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  if (f !== 'all') {
+    showSubject(f);
+  } else {
+    showHome();
+  }
+}
+
+// ===== READING FEATURES =====
+function setFontSize(size) {
+  const body = document.getElementById('readerBody');
+  if (!body) return;
+  body.className = `reader-body fs-${size}`;
+  document.querySelectorAll('#readerControls .rc-btn').forEach((b,i) => {
+    b.classList.toggle('active', ['sm','md','lg','xl'][i] === size);
+  });
+}
+
+function toggleSepia() {
+  document.body.classList.toggle('sepia-mode');
+}
+
+function toggleDarkMode() {
+  document.body.classList.toggle('dark-mode');
+  const btn = document.getElementById('themeBtn');
+  if (btn) btn.textContent = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
+}
+
+function updateReadingProgress() {
+  const el = document.getElementById('readerPaper');
+  if (!el) { document.getElementById('readingProgress').style.width = '0%'; return; }
+  const rect = el.getBoundingClientRect();
+  const total = el.offsetHeight - window.innerHeight;
+  const scrolled = Math.max(0, -rect.top);
+  const pct = total > 0 ? Math.min(100, (scrolled / total) * 100) : 0;
+  document.getElementById('readingProgress').style.width = pct + '%';
+}
+
+// ===== SIDEBAR MOBILE =====
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('sidebarOverlay').classList.toggle('show');
+}
+
+function closeSidebar() {
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('sidebarOverlay').classList.remove('show');
+}
 </script>
 </body>
 </html>
